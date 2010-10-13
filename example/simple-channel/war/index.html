@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset=utf-8 />
+		<title>Simple Channel API Test</title>
+		<script src="/_ah/channel/jsapi"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				var $chat = $("#chat");
+				var $message = $("#message");
+				var $nick = $("#nick");
+				var channel = "test";
+		
+				$("#send").click(function() {
+					send();
+				});
+				$message.keypress(function(key) {
+					if (key.charCode == 13) {
+						send();
+					}
+				});
+		
+				append("Joining...");
+				$.get("/simplechannel?command=join", function(data) {
+					append("Channel key: " + data);
+					var c = new goog.appengine.Channel(data);
+					var socket = c.open();
+					socket.onmessage = function(evt) {
+						append(evt.data);
+					}
+					append("Joined");
+				});
+		
+				function append(s) {
+					$chat.val($chat.val() + '\n' + s.trim());
+					$chat.scrollTop($chat[0].scrollHeight - $chat.height());
+				}
+		
+				function send() {
+					var message = $message.val().trim();
+					if (message) {
+						append("Sending message " + message + "...");
+						$message.val("");
+						$.get("/simplechannel?command=send&message=" + $nick.val() + ": "
+								+ message);
+					}
+				}
+			});
+		</script>
+		<style type="text/css">
+			#chat {
+				width: 300px;
+				height: 300px;
+			}
+			
+			#nick {
+				width: 50px;
+			}
+		</style>
+	</head>
+	
+	<body>
+		<h1>Channel API test</h1>
+		<textarea id="chat"></textarea>
+		<div>
+			<input id="nick" value="Nick" /> 
+			<input id="message" /> 
+			<input id="send" type="button" value="Send" />
+		</div>
+	</body>
+</html>
