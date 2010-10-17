@@ -1,4 +1,4 @@
-package no.eirikb.gwtchannelapi.shared;
+package no.eirikb.gwtchannelapi.client.channel;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 

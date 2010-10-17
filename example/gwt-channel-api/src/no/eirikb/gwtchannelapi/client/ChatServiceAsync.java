@@ -24,11 +24,13 @@
 package no.eirikb.gwtchannelapi.client;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.rpc.IsSerializable;
 
-/**
- * The async counterpart of <code>GreetingService</code>.
- */
 public interface ChatServiceAsync {
+
+	void getSerializable(IsSerializable isSerializable,
+			AsyncCallback<IsSerializable> callback);
+
 	void sendMessage(String input, AsyncCallback<Void> callback);
 
 	void join(AsyncCallback<String> callback);

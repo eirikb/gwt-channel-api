@@ -26,7 +26,6 @@ package no.eirikb.gwtchannelapi.server;
 import java.lang.reflect.Method;
 
 import no.eirikb.gwtchannelapi.client.ChatService;
-import no.eirikb.gwtchannelapi.client.MetaService;
 import no.eirikb.gwtchannelapi.shared.MessageEvent;
 
 import com.google.appengine.api.channel.ChannelMessage;
@@ -60,7 +59,7 @@ public class ChatServiceImpl extends RemoteServiceServlet implements
 		try {
 
 			MessageEvent msg = new MessageEvent(message);
-			Method serviceMethod = MetaService.class.getMethod(
+			Method serviceMethod = ChatService.class.getMethod(
 					"getSerializable", IsSerializable.class);
 			String toSend = RPC.encodeResponseForSuccess(serviceMethod, msg);
 
@@ -74,5 +73,10 @@ public class ChatServiceImpl extends RemoteServiceServlet implements
 			e.printStackTrace();
 		}
 
+	}
+
+	@Override
+	public IsSerializable getSerializable(IsSerializable isSerializable) {
+		return null;
 	}
 }

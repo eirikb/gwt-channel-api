@@ -23,14 +23,14 @@
  */
 package no.eirikb.gwtchannelapi.client;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
-/**
- * The client side stub for the RPC service.
- */
 @RemoteServiceRelativePath("chat")
 public interface ChatService extends RemoteService {
+	IsSerializable getSerializable(IsSerializable isSerializable);
+
 	void sendMessage(String message);
 
 	String join();
