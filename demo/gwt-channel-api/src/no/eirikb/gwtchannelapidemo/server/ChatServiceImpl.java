@@ -21,18 +21,36 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package no.eirikb.gwtchannelapi.client;
+package no.eirikb.gwtchannelapidemo.server;
 
-import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.rpc.IsSerializable;
+import no.eirikb.gwtchannelapi.server.ChannelServer;
+import no.eirikb.gwtchannelapidemo.client.ChatService;
+import no.eirikb.gwtchannelapidemo.shared.MessageEvent;
 
-public interface ChatServiceAsync {
+import com.google.appengine.api.channel.ChannelServiceFactory;
+import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
-	void getSerializable(IsSerializable isSerializable,
-			AsyncCallback<IsSerializable> callback);
+/**
+ * The server side implementation of the RPC service.
+ */
+@SuppressWarnings("serial")
+public class ChatServiceImpl extends RemoteServiceServlet implements
+		ChatService {
 
-	void sendMessage(String input, AsyncCallback<Void> callback);
+	private final String CHANNELNAME = "test";
+	private static String channelKey;
 
-	void join(AsyncCallback<String> callback);
+	@Override
+	public String join() {
+		if (channelKey == null) {
+			channelKey = ChannelServiceFactory.getChannelService()
+					.createChannel(CHANNELNAME);
+		}
+		return channelKey;
+	}
 
+	@Override
+	public void sendMessage(String message) {
+		ChannelServer.sendEvent(CHANNELNAME, new MessageEvent(message));
+	}
 }

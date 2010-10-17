@@ -6,15 +6,15 @@
 <web-app>
 	<servlet>
 		<servlet-name>chatServlet</servlet-name>
-		<servlet-class>no.eirikb.gwtchannelapi.server.ChatServiceImpl</servlet-class>
+		<servlet-class>no.eirikb.gwtchannelapidemo.server.ChatServiceImpl</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>chatServlet</servlet-name>
-		<url-pattern>/GwtChannelApi/chat</url-pattern>
+		<url-pattern>/GwtChannelApiDemo/chat</url-pattern>
 	</servlet-mapping>
 
 	<welcome-file-list>
-		<welcome-file>GwtChannelApi.html</welcome-file>
+		<welcome-file>GwtChannelApiDemo.html</welcome-file>
 	</welcome-file-list>
 </web-app>

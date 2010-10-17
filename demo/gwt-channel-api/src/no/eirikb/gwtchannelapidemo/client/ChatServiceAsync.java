@@ -21,17 +21,14 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package no.eirikb.gwtchannelapi.client;
+package no.eirikb.gwtchannelapidemo.client;
 
-import com.google.gwt.user.client.rpc.IsSerializable;
-import com.google.gwt.user.client.rpc.RemoteService;
-import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 
-@RemoteServiceRelativePath("chat")
-public interface ChatService extends RemoteService {
-	IsSerializable getSerializable(IsSerializable isSerializable);
+public interface ChatServiceAsync {
 
-	void sendMessage(String message);
+	void sendMessage(String input, AsyncCallback<Void> callback);
 
-	String join();
+	void join(AsyncCallback<String> callback);
+
 }

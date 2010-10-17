@@ -21,12 +21,12 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package no.eirikb.gwtchannelapi.client;
+package no.eirikb.gwtchannelapidemo.client;
 
-import no.eirikb.gwtchannelapi.client.channel.Channel;
-import no.eirikb.gwtchannelapi.client.channel.Channel.ChannelListener;
-import no.eirikb.gwtchannelapi.client.channel.Event;
-import no.eirikb.gwtchannelapi.shared.MessageEvent;
+import no.eirikb.gwtchannelapi.client.Channel;
+import no.eirikb.gwtchannelapi.client.Channel.ChannelListener;
+import no.eirikb.gwtchannelapi.shared.Event;
+import no.eirikb.gwtchannelapidemo.shared.MessageEvent;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -45,7 +45,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
-public class GwtChannelApi implements EntryPoint {
+public class GwtChannelApiDemo implements EntryPoint {
 
 	private final ChatServiceAsync chatService = GWT.create(ChatService.class);
 
@@ -93,7 +93,7 @@ public class GwtChannelApi implements EntryPoint {
 		});
 
 		append("Logging on...");
-		final GwtChannelApi me = this;
+		final GwtChannelApiDemo me = this;
 		chatService.join(new AsyncCallback<String>() {
 
 			@Override
