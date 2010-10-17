@@ -23,10 +23,17 @@
  */
 package no.eirikb.gwtchannelapi.server;
 
+import java.lang.reflect.Method;
+
 import no.eirikb.gwtchannelapi.client.ChatService;
+import no.eirikb.gwtchannelapi.client.MetaService;
+import no.eirikb.gwtchannelapi.shared.MessageEvent;
 
 import com.google.appengine.api.channel.ChannelMessage;
 import com.google.appengine.api.channel.ChannelServiceFactory;
+import com.google.gwt.user.client.rpc.IsSerializable;
+import com.google.gwt.user.client.rpc.SerializationException;
+import com.google.gwt.user.server.rpc.RPC;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 /**
@@ -50,8 +57,22 @@ public class ChatServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public void sendMessage(String message) {
-		ChannelServiceFactory.getChannelService().sendMessage(
-				new ChannelMessage(CHANNELNAME, message));
+		try {
+
+			MessageEvent msg = new MessageEvent(message);
+			Method serviceMethod = MetaService.class.getMethod(
+					"getSerializable", IsSerializable.class);
+			String toSend = RPC.encodeResponseForSuccess(serviceMethod, msg);
+
+			ChannelServiceFactory.getChannelService().sendMessage(
+					new ChannelMessage(CHANNELNAME, toSend));
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		} catch (SerializationException e) {
+			e.printStackTrace();
+		}
 
 	}
 }

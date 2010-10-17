@@ -23,6 +23,9 @@
  */
 package no.eirikb.gwtchannelapi.client;
 
+import no.eirikb.gwtchannelapi.shared.Event;
+import no.eirikb.gwtchannelapi.shared.MessageEvent;
+
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -30,6 +33,8 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyDownHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.rpc.SerializationException;
+import com.google.gwt.user.client.rpc.SerializationStreamFactory;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -112,7 +117,20 @@ public class GwtChannelApi implements EntryPoint {
 		RootPanel.get().add(vp);
 	}
 
-	private void append(String line) {
+	private void onMessage(String encoded) {
+		SerializationStreamFactory ssf = GWT.create(MetaService.class);
+		try {
+			Event event = (Event) ssf.createStreamReader(encoded).readObject();
+			event.execute();
+			if (event instanceof MessageEvent) {
+				((MessageEvent) event).execute(this);
+			}
+		} catch (SerializationException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void append(String line) {
 		String text = chat.getText();
 		chat.setText(text.length() > 0 ? text + '\n' + line : line);
 	}
@@ -122,8 +140,8 @@ public class GwtChannelApi implements EntryPoint {
 		var socket = c.open();
 		var me = this;
 		socket.onmessage = function(evt) {
-			var s = evt.data;
-			me.@no.eirikb.gwtchannelapi.client.GwtChannelApi::append(Ljava/lang/String;)(s);
+		var s = evt.data;
+		me.@no.eirikb.gwtchannelapi.client.GwtChannelApi::onMessage(Ljava/lang/String;)(s);
 		}
 	}-*/;
 }
