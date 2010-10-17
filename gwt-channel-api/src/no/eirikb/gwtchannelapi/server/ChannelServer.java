@@ -34,7 +34,23 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 import com.google.gwt.user.client.rpc.SerializationException;
 import com.google.gwt.user.server.rpc.RPC;
 
+/**
+ * 
+ * @author Eirik Brandtzæg <eirikb@eirikb.no>
+ * 
+ */
 public class ChannelServer {
+
+	private ChannelServer() {
+	}
+
+	/**
+	 * Send event to all clients on a given channel Channel is channel name
+	 * here, not channel key
+	 * 
+	 * @param channel
+	 * @param event
+	 */
 	public static void sendEvent(String channel, Event event) {
 		try {
 

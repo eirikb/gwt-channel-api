@@ -25,6 +25,12 @@ package no.eirikb.gwtchannelapi.shared;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
+/**
+ * Simple abstract event - the important part is IsSerializable
+ * 
+ * @author eirikb@eirikb.no
+ * 
+ */
 public abstract class Event implements IsSerializable {
 	public abstract void execute();
 }

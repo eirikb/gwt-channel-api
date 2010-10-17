@@ -27,6 +27,14 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
+/**
+ * Dummy class for serializing Ref:
+ * http://code.google.com/p/cometd4gwt/source/browse
+ * /trunk/cometd4gwt/src/org/cometd4gwt/client/MetaService.java
+ * 
+ * @author Eirik Brandtzæg <eirikb@eirikb.no>
+ * 
+ */
 @RemoteServiceRelativePath("channel_service")
 public interface ChannelService extends RemoteService {
 	IsSerializable getSerializable(IsSerializable isSerializable);

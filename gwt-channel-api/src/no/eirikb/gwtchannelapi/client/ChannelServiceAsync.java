@@ -26,6 +26,11 @@ package no.eirikb.gwtchannelapi.client;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
+/**
+ * 
+ * @author Eirik Brandtzæg <eirikb@eirikb.no>
+ * 
+ */
 public interface ChannelServiceAsync {
 
 	void getSerializable(IsSerializable isSerializable,
