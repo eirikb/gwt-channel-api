@@ -85,12 +85,12 @@ public class Channel {
 	}
 
 	private native void join(String channelKey) /*-{
-													var c = new $wnd.goog.appengine.Channel(channelKey);
-													var socket = c.open();
-													var me = this;
-													socket.onmessage = function(evt) {
-													var s = evt.data;
-													me.@no.eirikb.gwtchannelapi.client.Channel::onMessage(Ljava/lang/String;)(s);
-													}
-													}-*/;
+		var c = new $wnd.goog.appengine.Channel(channelKey);
+		var socket = c.open();
+		var me = this;
+		socket.onmessage = function(evt) {
+			var s = evt.data;
+			me.@no.eirikb.gwtchannelapi.client.Channel::onMessage(Ljava/lang/String;)(s);
+		}
+	}-*/;
 }
