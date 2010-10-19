@@ -23,10 +23,11 @@
  */
 package no.eirikb.gwtchannelapidemo.shared;
 
-import no.eirikb.gwtchannelapi.shared.Event;
+import no.eirikb.gwtchannelapi.client.Message;
 import no.eirikb.gwtchannelapidemo.client.GwtChannelApiDemo;
 
-public class MessageEvent extends Event {
+@SuppressWarnings("serial")
+public class MessageEvent implements Message {
 	private String message;
 
 	public MessageEvent() {
@@ -36,12 +37,12 @@ public class MessageEvent extends Event {
 		this.message = message;
 	}
 
-	@Override
-	public void execute() {
-	}
-
 	public void execute(GwtChannelApiDemo gwtChannelApi) {
 		gwtChannelApi.append(message);
+	}
+
+	public String toString() {
+		return message;
 	}
 
 }

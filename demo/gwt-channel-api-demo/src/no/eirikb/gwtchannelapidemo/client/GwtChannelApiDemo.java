@@ -24,9 +24,8 @@
 package no.eirikb.gwtchannelapidemo.client;
 
 import no.eirikb.gwtchannelapi.client.Channel;
-import no.eirikb.gwtchannelapi.client.Channel.ChannelListener;
-import no.eirikb.gwtchannelapi.shared.Event;
-import no.eirikb.gwtchannelapidemo.shared.MessageEvent;
+import no.eirikb.gwtchannelapi.client.ChannelListener;
+import no.eirikb.gwtchannelapi.client.Message;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -93,23 +92,22 @@ public class GwtChannelApiDemo implements EntryPoint {
 		});
 
 		append("Logging on...");
-		final GwtChannelApiDemo me = this;
 		chatService.join(new AsyncCallback<String>() {
 
 			@Override
 			public void onSuccess(String result) {
 				channelKey = result;
 				append("Channel key: " + channelKey);
-
-				Channel.join(channelKey, new ChannelListener() {
+				Channel channel = new Channel(channelKey);
+				channel.addChannelListener(new ChannelListener() {
 
 					@Override
-					public void onMessage(Event event) {
-						if (event instanceof MessageEvent) {
-							((MessageEvent) event).execute(me);
-						}
+					public void onReceive(Message message) {
+						append(message.toString());
+
 					}
 				});
+				channel.join();
 			}
 
 			@Override

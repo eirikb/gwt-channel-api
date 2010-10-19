@@ -39,6 +39,8 @@ public class ChatServiceImpl extends RemoteServiceServlet implements
 
 	private final String CHANNELNAME = "test";
 	private static String channelKey;
+	
+
 
 	@Override
 	public String join() {
@@ -51,6 +53,6 @@ public class ChatServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public void sendMessage(String message) {
-		ChannelServer.sendEvent(CHANNELNAME, new MessageEvent(message));
+		ChannelServer.send(CHANNELNAME, new MessageEvent(message));
 	}
 }
