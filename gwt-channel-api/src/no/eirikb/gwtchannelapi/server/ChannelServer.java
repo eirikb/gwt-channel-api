@@ -26,13 +26,13 @@ package no.eirikb.gwtchannelapi.server;
 import java.lang.reflect.Method;
 
 import no.eirikb.gwtchannelapi.client.ChannelService;
-import no.eirikb.gwtchannelapi.shared.Event;
+import no.eirikb.gwtchannelapi.client.Message;
 
 import com.google.appengine.api.channel.ChannelMessage;
 import com.google.appengine.api.channel.ChannelServiceFactory;
-import com.google.gwt.user.client.rpc.IsSerializable;
 import com.google.gwt.user.client.rpc.SerializationException;
 import com.google.gwt.user.server.rpc.RPC;
+import com.google.gwt.user.server.rpc.SerializationPolicy;
 
 /**
  * 
@@ -45,21 +45,45 @@ public class ChannelServer {
 	}
 
 	/**
-	 * Send event to all clients on a given channel Channel is channel name
+	 * Send event to all clients on a given channel. Channel is channel name
 	 * here, not channel key
 	 * 
 	 * @param channel
-	 * @param event
+	 * @param message
+	 *            Any class implementing (or interface extending)
+	 *            no.eirikb.gwtchannelapi.client.Message
 	 */
-	public static void sendEvent(String channel, Event event) {
+	public static void send(String channel, Message message) {
 		try {
+			Method serviceMethod = ChannelService.class.getMethod("getMessage",
+					Message.class);
+			// Yes, the SerializationPolicy is hack
+			String serialized = RPC.encodeResponseForSuccess(serviceMethod,
+					message, new SerializationPolicy() {
 
-			Method serviceMethod = ChannelService.class.getMethod(
-					"getSerializable", IsSerializable.class);
-			String toSend = RPC.encodeResponseForSuccess(serviceMethod, event);
+						@Override
+						public void validateSerialize(Class<?> clazz)
+								throws SerializationException {
+						}
+
+						@Override
+						public void validateDeserialize(Class<?> clazz)
+								throws SerializationException {
+						}
+
+						@Override
+						public boolean shouldSerializeFields(Class<?> clazz) {
+							return false;
+						}
+
+						@Override
+						public boolean shouldDeserializeFields(Class<?> clazz) {
+							return false;
+						}
+					});
 
 			ChannelServiceFactory.getChannelService().sendMessage(
-					new ChannelMessage(channel, toSend));
+					new ChannelMessage(channel, serialized));
 		} catch (SecurityException e) {
 			e.printStackTrace();
 		} catch (NoSuchMethodException e) {

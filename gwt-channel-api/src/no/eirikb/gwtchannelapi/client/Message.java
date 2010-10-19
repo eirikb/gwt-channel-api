@@ -23,15 +23,15 @@
  */
 package no.eirikb.gwtchannelapi.client;
 
-import com.google.gwt.user.client.rpc.AsyncCallback;
+import java.io.Serializable;
 
 /**
+ * Used for serializing and deserializing objects. You need to implement this to
+ * send objects
  * 
  * @author Eirik Brandtzæg <eirikb@eirikb.no>
  * 
  */
-public interface ChannelServiceAsync {
-
-	void getMessage(Message message, AsyncCallback<Message> callback);
+public interface Message extends Serializable {
 
 }

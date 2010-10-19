@@ -23,7 +23,8 @@
  */
 package no.eirikb.gwtchannelapi.client;
 
-import no.eirikb.gwtchannelapi.shared.Event;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.SerializationException;
@@ -35,28 +36,28 @@ import com.google.gwt.user.client.rpc.SerializationStreamFactory;
  * 
  */
 public class Channel {
-	public interface ChannelListener {
-		/**
-		 * When an event is received from server (server push).
-		 * 
-		 * @param event
-		 *            Any object that extends from abstract class Event
-		 */
-		void onMessage(Event event);
-	}
+	private List<ChannelListener> channelListeners;
+	private String channelKey;
 
-	private Channel(ChannelListener channelListener) {
-		this.channelListener = channelListener;
+	/**
+	 * 
+	 * @param channelKey
+	 *            key of the channel. This key is the key you get from
+	 *            ChannelServiceFactory
+	 *            .getChannelService().createChannel(String) on server side
+	 */
+	public Channel(String channelKey) {
+		this.channelKey = channelKey;
+		channelListeners = new ArrayList<ChannelListener>();
 	}
-
-	private ChannelListener channelListener;
 
 	private void onMessage(String encoded) {
 		SerializationStreamFactory ssf = GWT.create(ChannelService.class);
 		try {
-			Event event = (Event) ssf.createStreamReader(encoded).readObject();
-			if (channelListener != null) {
-				channelListener.onMessage(event);
+			Message message = (Message) ssf.createStreamReader(encoded)
+					.readObject();
+			for (int i = 0; i < channelListeners.size(); i++) {
+				channelListeners.get(i).onReceive(message);
 			}
 		} catch (SerializationException e) {
 			e.printStackTrace();
@@ -64,26 +65,32 @@ public class Channel {
 	}
 
 	/**
-	 * Join a channel. ChannelListener is crucial
+	 * Join the channel
+	 */
+	public void join() {
+		join(channelKey);
+	}
+
+	/**
+	 * Add a ChannelListener that will respond on events
 	 * 
-	 * @param channelKey
-	 *            key of the channel. This key is the key you get from
-	 *            ChannelServiceFactory
-	 *            .getChannelService().createChannel(String) on server side
 	 * @param channelListener
 	 */
-	public static void join(String channelKey, ChannelListener channelListener) {
-		Channel channel = new Channel(channelListener);
-		channel.join(channelKey);
+	public void addChannelListener(ChannelListener channelListener) {
+		channelListeners.add(channelListener);
+	}
+
+	public void removeChannelListener(ChannelListener channelListener) {
+		channelListeners.remove(channelListener);
 	}
 
 	private native void join(String channelKey) /*-{
-												var c = new $wnd.goog.appengine.Channel(channelKey);
-												var socket = c.open();
-												var me = this;
-												socket.onmessage = function(evt) {
-												var s = evt.data;
-												me.@no.eirikb.gwtchannelapi.client.Channel::onMessage(Ljava/lang/String;)(s);
-												}
-												}-*/;
+													var c = new $wnd.goog.appengine.Channel(channelKey);
+													var socket = c.open();
+													var me = this;
+													socket.onmessage = function(evt) {
+													var s = evt.data;
+													me.@no.eirikb.gwtchannelapi.client.Channel::onMessage(Ljava/lang/String;)(s);
+													}
+													}-*/;
 }

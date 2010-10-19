@@ -21,16 +21,19 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package no.eirikb.gwtchannelapi.shared;
-
-import java.io.Serializable;
+package no.eirikb.gwtchannelapi.client;
 
 /**
- * Simple abstract event - the important part is IsSerializable
  * 
- * @author eirikb@eirikb.no
+ * @author Eirik Brandtzæg <eirikb@eirikb.no>
  * 
  */
-public abstract class Event implements Serializable {
-	public abstract void execute();
+public interface ChannelListener {
+	/**
+	 * When an event is received from server (server push).
+	 * 
+	 * @param event
+	 *            Any object that extends from abstract class Event
+	 */
+	void onReceive(Message message);
 }

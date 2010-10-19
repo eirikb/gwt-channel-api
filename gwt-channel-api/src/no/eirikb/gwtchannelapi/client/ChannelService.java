@@ -23,7 +23,6 @@
  */
 package no.eirikb.gwtchannelapi.client;
 
-import com.google.gwt.user.client.rpc.IsSerializable;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
@@ -37,5 +36,5 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  */
 @RemoteServiceRelativePath("channel_service")
 public interface ChannelService extends RemoteService {
-	IsSerializable getSerializable(IsSerializable isSerializable);
+	Message getMessage(Message message);
 }
