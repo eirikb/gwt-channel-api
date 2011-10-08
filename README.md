@@ -1,26 +1,33 @@
-The point of this project is to provide working examples and a tiny library for the GAE Channel API in GWT with as little code as possible
+Demo
+-
+
+To run the demo do this:
+
+   mvn install
+   cd demo
+   mvn install gwt:run
 
 Usage
 -
 
 Your module
---
+----
 
     <inherits name='no.eirikb.gwtchannelapi.GwtChannelApi' />
 
 HTML
---
+----
 Add this to your HTML:
 
     <script src="/_ah/channel/jsapi"></script>
 
 Create a channel (serverside)
---
+----
 
     ChannelServiceFactory.getChannelService().createChannel(CHANNELNAME);
 
 Join a channel (clientside)
---
+----
 
     import no.eirikb.gwtchannelapi.client.Channel;
     import no.eirikb.gwtchannelapi.client.Channel.ChannelListener;
