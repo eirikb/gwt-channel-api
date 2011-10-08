@@ -3,9 +3,9 @@ Demo
 
 To run the demo do this:
 
-   mvn install
-   cd demo
-   mvn install gwt:run
+    mvn install
+    cd demo
+    mvn install gwt:run
 
 Usage
 -
