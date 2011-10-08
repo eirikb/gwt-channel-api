@@ -51,6 +51,10 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <runTarget>GwtChannelApiDemo.html</runTarget>
+                    <server>com.google.appengine.tools.development.gwt.AppEngineLauncher</server>
+                </configuration>
             </plugin>
         </plugins>
     </build>
