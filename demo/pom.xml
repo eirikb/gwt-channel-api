@@ -55,6 +55,7 @@
                 <configuration>
                     <runTarget>GwtChannelApiDemo.html</runTarget>
                     <server>com.google.appengine.tools.development.gwt.AppEngineLauncher</server>
+                    <appEngineVersion>1.5.4</appEngineVersion>
                 </configuration>
             </plugin>
         </plugins>
