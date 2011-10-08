@@ -10,24 +10,30 @@ To run the demo do this:
 Usage
 -
 
-Your module
-----
+You will find the jar-files under the lib-folder if you don't use maven.  
+With maven use this:
+
+    <dependency>
+        <groupId>no.eirikb.gwtchannelapi</groupId>
+        <artifactId>gwt-channel-api</artifactId>
+        <version>0.1-SNAPSHOT</version>
+    </dependency>
+
+**Your module**
 
     <inherits name='no.eirikb.gwtchannelapi.GwtChannelApi' />
 
-HTML
-----
+**HTML**
+
 Add this to your HTML:
 
     <script src="/_ah/channel/jsapi"></script>
 
-Create a channel (serverside)
-----
+**Create a channel (serverside)**
 
     ChannelServiceFactory.getChannelService().createChannel(CHANNELNAME);
 
-Join a channel (clientside)
-----
+**Join a channel (clientside)**
 
     import no.eirikb.gwtchannelapi.client.Channel;
     import no.eirikb.gwtchannelapi.client.Channel.ChannelListener;
