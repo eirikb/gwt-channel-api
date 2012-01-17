@@ -10,6 +10,26 @@
     <version>0.1-SNAPSHOT</version>
     <name>gwt-channel-api</name>
     <packaging>jar</packaging>
+    <description>GAE channel API in GWT</description>
+    <url>https://github.com/eirikb/gwt-channel-api</url>
+    <licenses>
+        <license>
+            <name>BSD License</name>
+            <url>http://www.opensource.org/licenses/bsd-license.php</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <id>eirikb</id>
+            <name>Eirik Brandtzæg</name>
+            <email>eirikb@eirikb.no</email>
+        </developer>
+    </developers>
+    <scm>
+        <connection>scm:git:git@github.com:eirikb/gwt-channel-api.git</connection>
+        <developerConnection>scm:git:git@github.com:eirikb/gwt-channel-api.git</developerConnection>
+        <url>git@github.com:eirikb/gwt-channel-api.git</url>
+    </scm>
 
     <dependencies>
         <dependency>
