@@ -5,7 +5,7 @@
 
     <groupId>no.eirikb</groupId>
     <artifactId>gwt-channel-api</artifactId>
-    <version>0.1</version>
+    <version>0.2-SNAPSHOT</version>
     <name>gwt-channel-api</name>
     <packaging>jar</packaging>
     <description>GAE channel API in GWT</description>
