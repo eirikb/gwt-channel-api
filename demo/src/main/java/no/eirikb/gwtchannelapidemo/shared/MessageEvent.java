@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2010, Eirik Brandtzæg
+ * Copyright (c) 2012, Eirik Brandtzæg
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -28,21 +28,20 @@ import no.eirikb.gwtchannelapidemo.client.GwtChannelApiDemo;
 
 @SuppressWarnings("serial")
 public class MessageEvent implements Message {
-	private String message;
+    private String message;
 
-	public MessageEvent() {
-	}
+    public MessageEvent() {
+    }
 
-	public MessageEvent(String message) {
-		this.message = message;
-	}
+    public MessageEvent(String message) {
+        this.message = message;
+    }
 
-	public void execute(GwtChannelApiDemo gwtChannelApi) {
-		gwtChannelApi.append(message);
-	}
+    public void execute(GwtChannelApiDemo gwtChannelApi) {
+        gwtChannelApi.append(message);
+    }
 
-	public String toString() {
-		return message;
-	}
-
+    public String toString() {
+        return message;
+    }
 }

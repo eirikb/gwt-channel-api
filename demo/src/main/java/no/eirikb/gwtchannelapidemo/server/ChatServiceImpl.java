@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2010, Eirik Brandtzæg
+ * Copyright (c) 2012, Eirik Brandtzæg
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -34,25 +34,21 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  * The server side implementation of the RPC service.
  */
 @SuppressWarnings("serial")
-public class ChatServiceImpl extends RemoteServiceServlet implements
-		ChatService {
+public class ChatServiceImpl extends RemoteServiceServlet implements ChatService {
 
-	private final String CHANNELNAME = "test";
-	private static String channelKey;
-	
+    private final String CHANNELNAME = "test";
+    private static String channelKey;
 
+    @Override
+    public String join() {
+        if (channelKey == null) {
+            channelKey = ChannelServiceFactory.getChannelService().createChannel(CHANNELNAME);
+        }
+        return channelKey;
+    }
 
-	@Override
-	public String join() {
-		if (channelKey == null) {
-			channelKey = ChannelServiceFactory.getChannelService()
-					.createChannel(CHANNELNAME);
-		}
-		return channelKey;
-	}
-
-	@Override
-	public void sendMessage(String message) {
-		ChannelServer.send(CHANNELNAME, new MessageEvent(message));
-	}
+    @Override
+    public void sendMessage(String message) {
+       ChannelServer.send(CHANNELNAME, new MessageEvent(message));
+   }
 }

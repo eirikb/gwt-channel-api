@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2010, Eirik Brandtzæg
+ * Copyright (c) 2012, Eirik Brandtzæg
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -41,93 +41,89 @@ import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-/**
- * Entry point classes define <code>onModuleLoad()</code>.
- */
 public class GwtChannelApiDemo implements EntryPoint {
 
-	private final ChatServiceAsync chatService = GWT.create(ChatService.class);
+    private final ChatServiceAsync chatService = GWT.create(ChatService.class);
 
-	private TextArea chat;
-	private TextBox messageBox;
-	private Button sendButton;
-	private String channelKey;
+    private TextArea chat;
+    private TextBox messageBox;
+    private Button sendButton;
+    private String channelKey;
 
-	public void onModuleLoad() {
-		chat = new TextArea();
-		chat.setWidth("400px");
-		chat.setHeight("300px");
-		messageBox = new TextBox();
-		messageBox.addKeyDownHandler(new KeyDownHandler() {
+    public void onModuleLoad() {
+        chat = new TextArea();
+        chat.setWidth("400px");
+        chat.setHeight("300px");
+        messageBox = new TextBox();
+        messageBox.addKeyDownHandler(new KeyDownHandler() {
 
-			@Override
-			public void onKeyDown(KeyDownEvent event) {
-				if (event.getNativeKeyCode() == 13) {
-					sendButton.click();
-				}
-			}
-		});
+            @Override
+            public void onKeyDown(KeyDownEvent event) {
+                if (event.getNativeKeyCode() == 13) {
+                    sendButton.click();
+                }
+            }
+        });
 
-		sendButton = new Button("Send", new ClickHandler() {
+        sendButton = new Button("Send", new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {
-				String message = messageBox.getText();
-				if (!message.isEmpty()) {
-					messageBox.setText("");
-					append("Sending message: " + message);
-					chatService.sendMessage(message, new AsyncCallback<Void>() {
+            @Override
+            public void onClick(ClickEvent event) {
+                String message = messageBox.getText();
+                if (!message.isEmpty()) {
+                    messageBox.setText("");
+                    append("Sending message: " + message);
+                    chatService.sendMessage(message, new AsyncCallback<Void>() {
 
-						@Override
-						public void onSuccess(Void result) {
-						}
+                        @Override
+                        public void onSuccess(Void result) {
+                        }
 
-						@Override
-						public void onFailure(Throwable caught) {
-							append("Failure: " + caught);
-						}
-					});
-				}
-			}
-		});
+                    @Override
+                        public void onFailure(Throwable caught) {
+                            append("Failure: " + caught);
+                        }
+                    });
+                }
+            }
+        });
 
-		append("Logging on...");
-		chatService.join(new AsyncCallback<String>() {
+        append("Logging on...");
+        chatService.join(new AsyncCallback<String>() {
 
-			@Override
-			public void onSuccess(String result) {
-				channelKey = result;
-				append("Channel key: " + channelKey);
-				Channel channel = new Channel(channelKey);
-				channel.addChannelListener(new ChannelListener() {
+            @Override
+            public void onSuccess(String result) {
+                channelKey = result;
+                append("Channel key: " + channelKey);
+                Channel channel = new Channel(channelKey);
+                channel.addChannelListener(new ChannelListener() {
 
-					@Override
-					public void onReceive(Message message) {
-						append(message.toString());
+                    @Override
+                    public void onReceive(Message message) {
+                        append(message.toString());
 
-					}
-				});
-				channel.join();
-			}
+                    }
+                });
+                channel.join();
+            }
 
-			@Override
-			public void onFailure(Throwable caught) {
+        @Override
+            public void onFailure(Throwable caught) {
 
-			}
-		});
+            }
+        });
 
-		VerticalPanel vp = new VerticalPanel();
-		vp.add(chat);
-		HorizontalPanel hp = new HorizontalPanel();
-		hp.add(messageBox);
-		hp.add(sendButton);
-		vp.add(hp);
-		RootPanel.get().add(vp);
-	}
+        VerticalPanel vp = new VerticalPanel();
+        vp.add(chat);
+        HorizontalPanel hp = new HorizontalPanel();
+        hp.add(messageBox);
+        hp.add(sendButton);
+        vp.add(hp);
+        RootPanel.get().add(vp);
+    }
 
-	public void append(String line) {
-		String text = chat.getText();
-		chat.setText(text.length() > 0 ? text + '\n' + line : line);
-	}
-
+    public void append(String line) {
+        String text = chat.getText();
+        chat.setText(text.length() > 0 ? text + '\n' + line : line);
+    }
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2010, Eirik Brandtzæg
+ * Copyright (c) 2012, Eirik Brandtzæg
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -27,8 +27,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface ChatServiceAsync {
 
-	void sendMessage(String input, AsyncCallback<Void> callback);
+    void sendMessage(String input, AsyncCallback<Void> callback);
 
-	void join(AsyncCallback<String> callback);
-
+    void join(AsyncCallback<String> callback);
 }
