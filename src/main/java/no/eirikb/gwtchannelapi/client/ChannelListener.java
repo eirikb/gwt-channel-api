@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2010, Eirik Brandtzæg
+ * Copyright (c) 2012, Eirik Brandtzæg
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,16 +24,13 @@
 package no.eirikb.gwtchannelapi.client;
 
 /**
- * 
  * @author Eirik Brandtzæg <eirikb@eirikb.no>
- * 
  */
 public interface ChannelListener {
-	/**
-	 * When an event is received from server (server push).
-	 * 
-	 * @param event
-	 *            Any object that extends from abstract class Event
-	 */
-	void onReceive(Message message);
+    /**
+     * When an event is received from server (server push).
+     * 
+     * @param event any object that extends from abstract class Event
+     */
+    void onReceive(Message message);
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2010, Eirik Brandtzæg
+ * Copyright (c) 2012, Eirik Brandtzæg
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -35,61 +35,53 @@ import com.google.gwt.user.server.rpc.RPC;
 import com.google.gwt.user.server.rpc.SerializationPolicy;
 
 /**
- * 
  * @author Eirik Brandtzæg <eirikb@eirikb.no>
- * 
  */
 public class ChannelServer {
 
-	private ChannelServer() {
-	}
+    private ChannelServer() {
+    }
 
-	/**
-	 * Send event to all clients on a given channel. Channel is channel name
-	 * here, not channel key
-	 * 
-	 * @param channel
-	 * @param message
-	 *            Any class implementing (or interface extending)
-	 *            no.eirikb.gwtchannelapi.client.Message
-	 */
-	public static void send(String channel, Message message) {
-		try {
-			Method serviceMethod = ChannelService.class.getMethod("getMessage",
-					Message.class);
-			// Yes, the SerializationPolicy is hack
-			String serialized = RPC.encodeResponseForSuccess(serviceMethod,
-					message, new SerializationPolicy() {
+    /**
+     * Send event to all clients on a given channel. 
+     * Channel is channel name here, not channel key
+     * 
+     * @param channel
+     * @param message any class of no.eirikb.gwtchannelapi.client.Message
+     */
+    public static void send(String channel, Message message) {
+        try {
+            Method serviceMethod = ChannelService.class.getMethod("getMessage", Message.class);
 
-						@Override
-						public void validateSerialize(Class<?> clazz)
-								throws SerializationException {
-						}
+            // Yes, the SerializationPolicy is a hack
+            String serialized = RPC.encodeResponseForSuccess(serviceMethod, message, 
+                    new SerializationPolicy() {
+                @Override
+                public void validateSerialize(Class<?> clazz) throws SerializationException {
+                }
 
-						@Override
-						public void validateDeserialize(Class<?> clazz)
-								throws SerializationException {
-						}
+                @Override
+                public void validateDeserialize(Class<?> clazz) throws SerializationException {
+                }
 
-						@Override
-						public boolean shouldSerializeFields(Class<?> clazz) {
-							return false;
-						}
+                @Override
+                public boolean shouldSerializeFields(Class<?> clazz) {
+                    return false;
+                }
 
-						@Override
-						public boolean shouldDeserializeFields(Class<?> clazz) {
-							return false;
-						}
-					});
+                @Override
+                public boolean shouldDeserializeFields(Class<?> clazz) {
+                    return false;
+                }
+            });
 
-			ChannelServiceFactory.getChannelService().sendMessage(
-					new ChannelMessage(channel, serialized));
-		} catch (SecurityException e) {
-			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		} catch (SerializationException e) {
-			e.printStackTrace();
-		}
-	}
+            ChannelServiceFactory.getChannelService().sendMessage(new ChannelMessage(channel, serialized));
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (SerializationException e) {
+            e.printStackTrace();
+        }
+    }
 }

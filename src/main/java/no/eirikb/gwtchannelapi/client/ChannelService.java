@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2010, Eirik Brandtzæg
+ * Copyright (c) 2012, Eirik Brandtzæg
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -27,14 +27,12 @@ import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 /**
- * Dummy class for serializing Ref:
- * http://code.google.com/p/cometd4gwt/source/browse
- * /trunk/cometd4gwt/src/org/cometd4gwt/client/MetaService.java
+ * Dummy class for serializing, ref:
+ * http://code.google.com/p/cometd4gwt/source/browse/trunk/cometd4gwt/src/org/cometd4gwt/client/MetaService.java
  * 
  * @author Eirik Brandtzæg <eirikb@eirikb.no>
- * 
  */
 @RemoteServiceRelativePath("channel_service")
 public interface ChannelService extends RemoteService {
-	Message getMessage(Message message);
+    Message getMessage(Message message);
 }

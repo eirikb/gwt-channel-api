@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2010, Eirik Brandtzæg
+ * Copyright (c) 2012, Eirik Brandtzæg
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,12 +26,10 @@ package no.eirikb.gwtchannelapi.client;
 import java.io.Serializable;
 
 /**
- * Used for serializing and deserializing objects. You need to implement this to
- * send objects
+ * Used for serializing and deserializing objects. 
+ * Needed to implement this to send objects
  * 
  * @author Eirik Brandtzæg <eirikb@eirikb.no>
- * 
  */
 public interface Message extends Serializable {
-
 }
