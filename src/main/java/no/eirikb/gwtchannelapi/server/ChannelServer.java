@@ -49,39 +49,33 @@ public class ChannelServer {
      * @param channel
      * @param message any class of no.eirikb.gwtchannelapi.client.Message
      */
-    public static void send(String channel, Message message) {
-        try {
-            Method serviceMethod = ChannelService.class.getMethod("getMessage", Message.class);
+    public static void send(String channel, Message message) 
+            throws NoSuchMethodException, SerializationException {
 
-            // Yes, the SerializationPolicy is a hack
-            String serialized = RPC.encodeResponseForSuccess(serviceMethod, message, 
-                    new SerializationPolicy() {
-                @Override
-                public void validateSerialize(Class<?> clazz) throws SerializationException {
-                }
+        Method serviceMethod = ChannelService.class.getMethod("getMessage", Message.class);
 
-                @Override
-                public void validateDeserialize(Class<?> clazz) throws SerializationException {
-                }
+        // Yes, the SerializationPolicy is a hack
+        String serialized = RPC.encodeResponseForSuccess(serviceMethod, message, 
+                new SerializationPolicy() {
+            @Override
+            public void validateSerialize(Class<?> clazz) throws SerializationException {
+            }
 
-                @Override
-                public boolean shouldSerializeFields(Class<?> clazz) {
-                    return false;
-                }
+            @Override
+            public void validateDeserialize(Class<?> clazz) throws SerializationException {
+            }
 
-                @Override
-                public boolean shouldDeserializeFields(Class<?> clazz) {
-                    return false;
-                }
-            });
+            @Override
+            public boolean shouldSerializeFields(Class<?> clazz) {
+                return false;
+            }
 
-            ChannelServiceFactory.getChannelService().sendMessage(new ChannelMessage(channel, serialized));
-        } catch (SecurityException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (SerializationException e) {
-            e.printStackTrace();
-        }
+            @Override
+            public boolean shouldDeserializeFields(Class<?> clazz) {
+                return false;
+            }
+        });
+
+        ChannelServiceFactory.getChannelService().sendMessage(new ChannelMessage(channel, serialized));
     }
 }
