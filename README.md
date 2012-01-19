@@ -1,10 +1,10 @@
 This is a wrapper of Google App Engine [Channel API](http://code.google.com/appengine/docs/java/channel/overview.html) for [Google Web Toolkit](http://code.google.com/webtoolkit)
 
 Setup
--
+=====
 
 Maven
---
+-----
 
 Add this to your pom.xml:
 
@@ -15,37 +15,37 @@ Add this to your pom.xml:
     </dependency>
 
 Module
---
+------
 
 Add this to your Module.gwt.xml:
 
     <inherits name='no.eirikb.gwtchannelapi.GwtChannelApi' />
 
 HTML
---
+----
 
 Add this to your index.html:
 
     <script src="/_ah/channel/jsapi"></script>
 
 Usage
--
+=====
 
 Create a channel on server
---
+--------------------------
 
     ChannelServiceFactory.getChannelService().createChannel(CHANNELNAME);
 
 Join a channel on client
---
+------------------------
 
     import no.eirikb.gwtchannelapi.client.Channel;
     import no.eirikb.gwtchannelapi.client.Channel.ChannelListener;
 
     Channel.join(channelKey, new ChannelListener() { ... });
 
-Send/Push messages from server (serverside)
---
+Send/Push messages from server
+------------------------------
 
 All classes that should be pushed MUST implement Message
 
@@ -55,3 +55,8 @@ All classes that should be pushed MUST implement Message
 
 ChannelServer.sendEvent(CHANNELNAME, new MessageEvent("Hello world"));
 
+Not using maven
+===============
+
+It should be possible to download the jar manually from here:  
+http://repo1.maven.org/maven2/no/eirikb/gwt-channel-api/0.1/gwt-channel-api-0.1.jar
