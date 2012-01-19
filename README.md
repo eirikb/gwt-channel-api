@@ -1,39 +1,43 @@
-Demo
+This is a wrapper of Google App Engine [Channel API](http://code.google.com/appengine/docs/java/channel/overview.html) for [Google Web Toolkit](http://code.google.com/webtoolkit)
+
+Setup
 -
 
-To run the demo do this:
+Maven
+--
 
-    mvn install
-    cd demo
-    mvn install gwt:run
-
-Usage
--
-
-You will find the jar-files under the lib-folder if you don't use maven.  
-With maven use this:
+Add this to your pom.xml:
 
     <dependency>
         <groupId>no.eirikb.gwtchannelapi</groupId>
         <artifactId>gwt-channel-api</artifactId>
-        <version>0.1-SNAPSHOT</version>
+        <version>0.1</version>
     </dependency>
 
-**Your module**
+Module
+--
+
+Add this to your Module.gwt.xml:
 
     <inherits name='no.eirikb.gwtchannelapi.GwtChannelApi' />
 
-**HTML**
+HTML
+--
 
-Add this to your HTML:
+Add this to your index.html:
 
     <script src="/_ah/channel/jsapi"></script>
 
-**Create a channel (serverside)**
+Usage
+-
+
+Create a channel on server
+--
 
     ChannelServiceFactory.getChannelService().createChannel(CHANNELNAME);
 
-**Join a channel (clientside)**
+Join a channel on client
+--
 
     import no.eirikb.gwtchannelapi.client.Channel;
     import no.eirikb.gwtchannelapi.client.Channel.ChannelListener;
@@ -41,10 +45,12 @@ Add this to your HTML:
     Channel.join(channelKey, new ChannelListener() { ... });
 
 Send/Push messages from server (serverside)
+--
+
 All classes that should be pushed MUST implement Message
 
     import no.eirikb.gwtchannelapi.client.Message;
-    public class MessageEvent implements Message {
+        public class MessageEvent implements Message {
     }
 
 ChannelServer.sendEvent(CHANNELNAME, new MessageEvent("Hello world"));
