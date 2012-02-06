@@ -8,25 +8,31 @@ Maven
 
 Add this to your pom.xml:
 
-    <dependency>
-        <groupId>no.eirikb.gwtchannelapi</groupId>
-        <artifactId>gwt-channel-api</artifactId>
-        <version>0.1</version>
-    </dependency>
+```XML
+<dependency>
+    <groupId>no.eirikb.gwtchannelapi</groupId>
+    <artifactId>gwt-channel-api</artifactId>
+    <version>0.1</version>
+</dependency>
+```
 
 Module
 ------
 
 Add this to your Module.gwt.xml:
 
-    <inherits name='no.eirikb.gwtchannelapi.GwtChannelApi' />
+```XML
+<inherits name='no.eirikb.gwtchannelapi.GwtChannelApi' />
+```
 
 HTML
 ----
 
 Add this to your index.html:
 
-    <script src="/_ah/channel/jsapi"></script>
+```HTML
+<script src="/_ah/channel/jsapi"></script>
+```
 
 Usage
 =====
@@ -34,26 +40,34 @@ Usage
 Create a channel on server
 --------------------------
 
-    ChannelServiceFactory.getChannelService().createChannel(CHANNELNAME);
+```Java
+ChannelServiceFactory.getChannelService().createChannel(CHANNELNAME);
+```
 
 Join a channel on client
 ------------------------
 
-    import no.eirikb.gwtchannelapi.client.Channel;
-    import no.eirikb.gwtchannelapi.client.Channel.ChannelListener;
+```Java
+import no.eirikb.gwtchannelapi.client.Channel;
+import no.eirikb.gwtchannelapi.client.Channel.ChannelListener;
 
-    Channel.join(channelKey, new ChannelListener() { ... });
+Channel.join(channelKey, new ChannelListener() { ... });
+```
 
 Send/Push messages from server
 ------------------------------
 
 All classes that should be pushed MUST implement Message
 
-    import no.eirikb.gwtchannelapi.client.Message;
-        public class MessageEvent implements Message {
-    }
+```Java
+import no.eirikb.gwtchannelapi.client.Message;
+    public class MessageEvent implements Message {
+}
+```
 
+```Java
 ChannelServer.sendEvent(CHANNELNAME, new MessageEvent("Hello world"));
+```
 
 Not using maven
 ===============
