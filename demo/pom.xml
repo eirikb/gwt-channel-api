@@ -11,17 +11,23 @@
     <name>gwt-channel-api-demo</name>
     <packaging>war</packaging>
 
+    <properties>
+        <gwtVersion>2.5.0</gwtVersion>
+        <webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-servlet</artifactId>
-            <version>2.4.0</version>
+            <version>${gwtVersion}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-user</artifactId>
-            <version>2.4.0</version>
+            <version>${gwtVersion}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -44,7 +50,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>gwt-maven-plugin</artifactId>
-                <version>2.4.0</version>
+                <version>${gwtVersion}</version>
                 <executions>
                     <execution>
                         <goals>
@@ -55,7 +61,7 @@
                 <configuration>
                     <runTarget>GwtChannelApiDemo.html</runTarget>
                     <server>com.google.appengine.tools.development.gwt.AppEngineLauncher</server>
-                    <appEngineVersion>1.6.1.1</appEngineVersion>
+                    <appEngineVersion>1.7.4</appEngineVersion>
                 </configuration>
             </plugin>
         </plugins>
