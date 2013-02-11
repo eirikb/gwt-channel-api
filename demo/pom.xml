@@ -39,6 +39,8 @@
     </dependencies>
 
     <build>
+        <outputDirectory>${webappDirectory}/WEB-INF/classes</outputDirectory>
+
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
