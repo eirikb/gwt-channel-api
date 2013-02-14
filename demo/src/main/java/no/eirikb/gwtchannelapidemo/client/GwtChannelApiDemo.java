@@ -103,6 +103,11 @@ public class GwtChannelApiDemo implements EntryPoint {
                         append(message.toString());
 
                     }
+
+                    @Override
+                    public void onOpen() {
+                        append("Connection open!");
+                    }
                 });
                 channel.join();
             }
