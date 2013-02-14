@@ -60,6 +60,18 @@ public class Channel {
         }
     }
 
+    private void onError() {
+        for (int i = 0; i < channelListeners.size(); i++) {
+            channelListeners.get(i).onError();
+        }
+    }
+
+    private void onClose() {
+        for (int i = 0; i < channelListeners.size(); i++) {
+            channelListeners.get(i).onClose();
+        }
+    }
+
     public void join() {
         join(channelKey);
     }
@@ -84,6 +96,14 @@ public class Channel {
 
         socket.onopen = function() {
             self.@no.eirikb.gwtchannelapi.client.Channel::onOpen()();
+        };
+
+        socket.onerror = function() {
+            self.@no.eirikb.gwtchannelapi.client.Channel::onError()();
+        };
+
+        socket.onclose = function() {
+            self.@no.eirikb.gwtchannelapi.client.Channel::onClose()();
         };
     }-*/;
 }

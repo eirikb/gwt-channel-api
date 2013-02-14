@@ -35,4 +35,8 @@ public interface ChannelListener {
     void onReceive(Message message);
 
     void onOpen();
+
+    void onError();
+
+    void onClose();
 }
