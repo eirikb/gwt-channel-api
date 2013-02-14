@@ -49,8 +49,8 @@
         <dependency>
             <groupId>com.google.appengine</groupId>
             <artifactId>appengine-api-1.0-sdk</artifactId>
-            <version>1.6.1.1</version>
-        </dependency>
+            <version>1.7.4</version>
+       </dependency>
     </dependencies>
 
     <build>
