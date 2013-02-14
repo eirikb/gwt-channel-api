@@ -30,7 +30,9 @@ public interface ChannelListener {
     /**
      * When an event is received from server (server push).
      * 
-     * @param event any object that extends from abstract class Event
+     * @param message any object that extends from abstract class Event
      */
     void onReceive(Message message);
+
+    void onOpen();
 }
