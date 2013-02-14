@@ -49,6 +49,9 @@ public class ChatServiceImpl extends RemoteServiceServlet implements ChatService
 
     @Override
     public void sendMessage(String message) {
-       ChannelServer.send(CHANNELNAME, new MessageEvent(message));
+        // TODO: Catch properly, perhaps no-throw
+        try {
+            ChannelServer.send(CHANNELNAME, new MessageEvent(message));
+        } catch (Exception e) {}
    }
 }
