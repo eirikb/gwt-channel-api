@@ -108,6 +108,16 @@ public class GwtChannelApiDemo implements EntryPoint {
                     public void onOpen() {
                         append("Connection open!");
                     }
+
+                    @Override
+                    public void onError() {
+                        append("Error!");
+                    }
+
+                    @Override
+                    public void onClose() {
+                        append("Close!");
+                    }
                 });
                 channel.join();
             }
