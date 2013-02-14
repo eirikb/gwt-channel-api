@@ -54,18 +54,16 @@ public class Channel {
         }
     }
 
-    /**
-     * Join the channel
-     */
+    private void onOpen() {
+        for (int i = 0; i < channelListeners.size(); i++) {
+            channelListeners.get(i).onOpen();
+        }
+    }
+
     public void join() {
         join(channelKey);
     }
 
-    /**
-     * Add a ChannelListener that will respond on events
-     * 
-     * @param channelListener
-     */
     public void addChannelListener(ChannelListener channelListener) {
         channelListeners.add(channelListener);
     }
@@ -78,9 +76,14 @@ public class Channel {
         var channel = new $wnd.goog.appengine.Channel(channelKey);
         var socket = channel.open();
         var self = this;
+
         socket.onmessage = function(evt) {
             var data = evt.data;
             self.@no.eirikb.gwtchannelapi.client.Channel::onMessage(Ljava/lang/String;)(data);
-        }
+        };
+
+        socket.onopen = function() {
+            self.@no.eirikb.gwtchannelapi.client.Channel::onOpen()();
+        };
     }-*/;
 }
