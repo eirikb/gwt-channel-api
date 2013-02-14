@@ -23,7 +23,8 @@
  */
 package no.eirikb.gwtchannelapi.client;
 
-import java.io.Serializable;
+//import java.io.Serializable;
+import com.google.gwt.user.client.rpc.IsSerializable;
 
 /**
  * Used for serializing and deserializing objects. 
@@ -31,5 +32,5 @@ import java.io.Serializable;
  * 
  * @author Eirik Brandtzæg <eirikb@eirikb.no>
  */
-public interface Message extends Serializable {
+public interface Message extends IsSerializable {
 }
