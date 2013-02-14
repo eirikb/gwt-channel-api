@@ -32,49 +32,25 @@ import com.google.appengine.api.channel.ChannelMessage;
 import com.google.appengine.api.channel.ChannelServiceFactory;
 import com.google.gwt.user.client.rpc.SerializationException;
 import com.google.gwt.user.server.rpc.RPC;
-import com.google.gwt.user.server.rpc.SerializationPolicy;
 
 /**
  * @author Eirik Brandtzæg <eirikb@eirikb.no>
  */
 public class ChannelServer {
 
-    private ChannelServer() {
-    }
-
     /**
      * Send event to all clients on a given channel. 
      * Channel is channel name here, not channel key
-     * 
+     *
      * @param channel
      * @param message any class of no.eirikb.gwtchannelapi.client.Message
      */
-    public static void send(String channel, Message message) 
+    public static void send(String channel, Message message)
             throws NoSuchMethodException, SerializationException {
 
         Method serviceMethod = ChannelService.class.getMethod("getMessage", Message.class);
 
-        // Yes, the SerializationPolicy is a hack
-        String serialized = RPC.encodeResponseForSuccess(serviceMethod, message, 
-                new SerializationPolicy() {
-            @Override
-            public void validateSerialize(Class<?> clazz) throws SerializationException {
-            }
-
-            @Override
-            public void validateDeserialize(Class<?> clazz) throws SerializationException {
-            }
-
-            @Override
-            public boolean shouldSerializeFields(Class<?> clazz) {
-                return false;
-            }
-
-            @Override
-            public boolean shouldDeserializeFields(Class<?> clazz) {
-                return false;
-            }
-        });
+        String serialized = RPC.encodeResponseForSuccess(serviceMethod, message);
 
         ChannelServiceFactory.getChannelService().sendMessage(new ChannelMessage(channel, serialized));
     }
