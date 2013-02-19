@@ -12,7 +12,7 @@ Add this to your pom.xml:
 <dependency>
     <groupId>no.eirikb.gwtchannelapi</groupId>
     <artifactId>gwt-channel-api</artifactId>
-    <version>0.1</version>
+    <version>0.2</version>
 </dependency>
 ```
 
