@@ -23,6 +23,7 @@
  */
 package no.eirikb.gwtchannelapi.client;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
 import com.google.gwt.user.client.rpc.RemoteService;
 
 /**
@@ -34,7 +35,7 @@ public interface ChannelListener extends RemoteService  {
      * 
      * @param message any object that extends from abstract class Event
      */
-    void onReceive(Message message);
+    void onReceive(IsSerializable message);
 
     void onOpen();
 

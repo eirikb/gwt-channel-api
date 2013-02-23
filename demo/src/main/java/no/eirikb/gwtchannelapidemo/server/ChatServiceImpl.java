@@ -23,12 +23,6 @@
  */
 package no.eirikb.gwtchannelapidemo.server;
 
-import no.eirikb.gwtchannelapi.server.ChannelServer;
-import no.eirikb.gwtchannelapidemo.shared.MessageEvent;
-
-import com.google.appengine.api.channel.ChannelServiceFactory;
-import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-
 /**
  * The server side implementation of the RPC service.
  */

@@ -23,22 +23,17 @@
  */
 package no.eirikb.gwtchannelapidemo.shared;
 
-import no.eirikb.gwtchannelapi.client.Message;
-import no.eirikb.gwtchannelapidemo.client.GwtChannelApiDemo;
+import com.google.gwt.user.client.rpc.IsSerializable;
 
 @SuppressWarnings("serial")
-public class MessageEvent implements Message {
+public class MyMessage implements IsSerializable {
     private String message;
 
-    public MessageEvent() {
+    public MyMessage() {
     }
 
-    public MessageEvent(String message) {
+    public MyMessage(String message) {
         this.message = message;
-    }
-
-    public void execute(GwtChannelApiDemo gwtChannelApi) {
-        gwtChannelApi.append(message);
     }
 
     public String toString() {

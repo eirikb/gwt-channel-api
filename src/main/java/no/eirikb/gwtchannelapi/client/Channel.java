@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.rpc.IsSerializable;
 import com.google.gwt.user.client.rpc.SerializationException;
 import com.google.gwt.user.client.rpc.SerializationStreamFactory;
 
@@ -48,7 +49,7 @@ public class Channel {
 
     private void onMessage(String encoded) throws SerializationException {
         SerializationStreamFactory ssf = GWT.create(DummySerializeService.class);
-        Message message = (Message) ssf.createStreamReader(encoded).readObject();
+        IsSerializable message = (IsSerializable) ssf.createStreamReader(encoded).readObject();
         for (int i = 0; i < channelListeners.size(); i++) {
             channelListeners.get(i).onReceive(message);
         }

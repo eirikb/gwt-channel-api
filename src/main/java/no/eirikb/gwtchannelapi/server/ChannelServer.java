@@ -25,17 +25,16 @@ package no.eirikb.gwtchannelapi.server;
 
 import java.lang.reflect.Method;
 
-import com.google.gwt.user.client.rpc.RemoteService;
+import com.google.gwt.user.client.rpc.IsSerializable;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import no.eirikb.gwtchannelapi.client.ChannelService;
 import no.eirikb.gwtchannelapi.client.DummySerializeService;
-import no.eirikb.gwtchannelapi.client.Message;
 
 import com.google.appengine.api.channel.ChannelMessage;
 import com.google.appengine.api.channel.ChannelServiceFactory;
 import com.google.gwt.user.client.rpc.SerializationException;
 import com.google.gwt.user.server.rpc.RPC;
-import no.eirikb.gwtchannelapidemo.shared.MessageEvent;
+import no.eirikb.gwtchannelapidemo.shared.MyMessage;
 
 /**
  * @author Eirik Brandtzæg <eirikb@eirikb.no>
@@ -49,10 +48,10 @@ public class ChannelServer extends RemoteServiceServlet implements ChannelServic
      * @param channel
      * @param message any class of no.eirikb.gwtchannelapi.client.Message
      */
-    public static void send(String channel, Message message)
+    public static void send(String channel, IsSerializable message)
             throws NoSuchMethodException, SerializationException {
 
-        Method serviceMethod = DummySerializeService.class.getMethod("getMessage", Message.class);
+        Method serviceMethod = DummySerializeService.class.getMethod("getMessage", IsSerializable.class);
 
         String serialized = RPC.encodeResponseForSuccess(serviceMethod, message);
 
@@ -63,7 +62,7 @@ public class ChannelServer extends RemoteServiceServlet implements ChannelServic
     public void sendMessage(String message) {
         // TODO: Catch properly, perhaps no-throw
         try {
-            ChannelServer.send("test", new MessageEvent(message));
+            ChannelServer.send("test", new MyMessage(message));
         } catch (Exception e) {}
     }
 

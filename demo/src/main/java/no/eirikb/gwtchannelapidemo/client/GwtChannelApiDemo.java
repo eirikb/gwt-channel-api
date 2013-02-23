@@ -23,6 +23,7 @@
  */
 package no.eirikb.gwtchannelapidemo.client;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
 import no.eirikb.gwtchannelapi.client.*;
 
 import com.google.gwt.core.client.EntryPoint;
@@ -97,7 +98,7 @@ public class GwtChannelApiDemo implements EntryPoint {
                 channel.addChannelListener(new ChannelListener() {
 
                     @Override
-                    public void onReceive(Message message) {
+                    public void onReceive(IsSerializable message) {
                         append(message.toString());
 
                     }
