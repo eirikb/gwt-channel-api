@@ -6,7 +6,7 @@
 <web-app>
 	<servlet>
 		<servlet-name>chatServlet</servlet-name>
-		<servlet-class>no.eirikb.gwtchannelapidemo.server.ChatServiceImpl</servlet-class>
+		<servlet-class>no.eirikb.gwtchannelapi.server.ChannelServer</servlet-class>
 	</servlet>
 
 	<servlet-mapping>

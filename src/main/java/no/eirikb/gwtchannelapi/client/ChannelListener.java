@@ -23,10 +23,12 @@
  */
 package no.eirikb.gwtchannelapi.client;
 
+import com.google.gwt.user.client.rpc.RemoteService;
+
 /**
  * @author Eirik Brandtzæg <eirikb@eirikb.no>
  */
-public interface ChannelListener {
+public interface ChannelListener extends RemoteService  {
     /**
      * When an event is received from server (server push).
      * 

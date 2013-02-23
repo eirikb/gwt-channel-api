@@ -23,9 +23,7 @@
  */
 package no.eirikb.gwtchannelapidemo.client;
 
-import no.eirikb.gwtchannelapi.client.Channel;
-import no.eirikb.gwtchannelapi.client.ChannelListener;
-import no.eirikb.gwtchannelapi.client.Message;
+import no.eirikb.gwtchannelapi.client.*;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -43,7 +41,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class GwtChannelApiDemo implements EntryPoint {
 
-    private final ChatServiceAsync chatService = GWT.create(ChatService.class);
+    private final ChannelServiceAsync channelService = GWT.create(ChannelService.class);
 
     private TextArea chat;
     private TextBox messageBox;
@@ -73,7 +71,7 @@ public class GwtChannelApiDemo implements EntryPoint {
                 if (!message.isEmpty()) {
                     messageBox.setText("");
                     append("Sending message: " + message);
-                    chatService.sendMessage(message, new AsyncCallback<Void>() {
+                    channelService.sendMessage(message, new AsyncCallback<Void>() {
 
                         @Override
                         public void onSuccess(Void result) {
@@ -89,7 +87,7 @@ public class GwtChannelApiDemo implements EntryPoint {
         });
 
         append("Logging on...");
-        chatService.join(new AsyncCallback<String>() {
+        channelService.join(new AsyncCallback<String>() {
 
             @Override
             public void onSuccess(String result) {

@@ -24,7 +24,6 @@
 package no.eirikb.gwtchannelapidemo.server;
 
 import no.eirikb.gwtchannelapi.server.ChannelServer;
-import no.eirikb.gwtchannelapidemo.client.ChatService;
 import no.eirikb.gwtchannelapidemo.shared.MessageEvent;
 
 import com.google.appengine.api.channel.ChannelServiceFactory;
@@ -34,24 +33,6 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  * The server side implementation of the RPC service.
  */
 @SuppressWarnings("serial")
-public class ChatServiceImpl extends RemoteServiceServlet implements ChatService {
+public class ChatServiceImpl {
 
-    private final String CHANNELNAME = "test";
-    private static String channelKey;
-
-    @Override
-    public String join() {
-        if (channelKey == null) {
-            channelKey = ChannelServiceFactory.getChannelService().createChannel(CHANNELNAME);
-        }
-        return channelKey;
-    }
-
-    @Override
-    public void sendMessage(String message) {
-        // TODO: Catch properly, perhaps no-throw
-        try {
-            ChannelServer.send(CHANNELNAME, new MessageEvent(message));
-        } catch (Exception e) {}
-   }
 }

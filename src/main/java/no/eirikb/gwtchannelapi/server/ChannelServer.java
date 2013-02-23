@@ -25,6 +25,9 @@ package no.eirikb.gwtchannelapi.server;
 
 import java.lang.reflect.Method;
 
+import com.google.gwt.user.client.rpc.RemoteService;
+import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+import no.eirikb.gwtchannelapi.client.ChannelService;
 import no.eirikb.gwtchannelapi.client.DummySerializeService;
 import no.eirikb.gwtchannelapi.client.Message;
 
@@ -32,11 +35,12 @@ import com.google.appengine.api.channel.ChannelMessage;
 import com.google.appengine.api.channel.ChannelServiceFactory;
 import com.google.gwt.user.client.rpc.SerializationException;
 import com.google.gwt.user.server.rpc.RPC;
+import no.eirikb.gwtchannelapidemo.shared.MessageEvent;
 
 /**
  * @author Eirik Brandtzæg <eirikb@eirikb.no>
  */
-public class ChannelServer {
+public class ChannelServer extends RemoteServiceServlet implements ChannelService {
 
     /**
      * Send event to all clients on a given channel. 
@@ -53,5 +57,22 @@ public class ChannelServer {
         String serialized = RPC.encodeResponseForSuccess(serviceMethod, message);
 
         ChannelServiceFactory.getChannelService().sendMessage(new ChannelMessage(channel, serialized));
+    }
+
+    @Override
+    public void sendMessage(String message) {
+        // TODO: Catch properly, perhaps no-throw
+        try {
+            ChannelServer.send("test", new MessageEvent(message));
+        } catch (Exception e) {}
+    }
+
+    @Override
+    public String join() {
+        String channelKey = null;
+        if (channelKey == null) {
+            channelKey = ChannelServiceFactory.getChannelService().createChannel("test");
+        }
+        return channelKey;
     }
 }
