@@ -47,7 +47,7 @@ public class Channel {
     }
 
     private void onMessage(String encoded) throws SerializationException {
-        SerializationStreamFactory ssf = GWT.create(ChannelService.class);
+        SerializationStreamFactory ssf = GWT.create(DummySerializeService.class);
         Message message = (Message) ssf.createStreamReader(encoded).readObject();
         for (int i = 0; i < channelListeners.size(); i++) {
             channelListeners.get(i).onReceive(message);

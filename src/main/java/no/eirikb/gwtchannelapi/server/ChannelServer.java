@@ -25,7 +25,7 @@ package no.eirikb.gwtchannelapi.server;
 
 import java.lang.reflect.Method;
 
-import no.eirikb.gwtchannelapi.client.ChannelService;
+import no.eirikb.gwtchannelapi.client.DummySerializeService;
 import no.eirikb.gwtchannelapi.client.Message;
 
 import com.google.appengine.api.channel.ChannelMessage;
@@ -48,7 +48,7 @@ public class ChannelServer {
     public static void send(String channel, Message message)
             throws NoSuchMethodException, SerializationException {
 
-        Method serviceMethod = ChannelService.class.getMethod("getMessage", Message.class);
+        Method serviceMethod = DummySerializeService.class.getMethod("getMessage", Message.class);
 
         String serialized = RPC.encodeResponseForSuccess(serviceMethod, message);
 
