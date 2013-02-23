@@ -27,6 +27,7 @@ import java.lang.reflect.Method;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+import no.eirikb.gwtchannelapi.client.Channel;
 import no.eirikb.gwtchannelapi.client.ChannelService;
 import no.eirikb.gwtchannelapi.client.DummySerializeService;
 
@@ -67,11 +68,9 @@ public class ChannelServer extends RemoteServiceServlet implements ChannelServic
     }
 
     @Override
-    public String join() {
-        String channelKey = null;
-        if (channelKey == null) {
-            channelKey = ChannelServiceFactory.getChannelService().createChannel("test");
-        }
-        return channelKey;
+    public Channel connect(String channelName) {
+        String token =  ChannelServiceFactory.getChannelService().createChannel(channelName);
+        Channel channel = new Channel(token);
+        return channel;
     }
 }

@@ -8,5 +8,5 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 public interface ChannelService extends RemoteService {
     public void sendMessage(String message);
 
-    public String join();
+    public Channel connect(String channelName);
 }

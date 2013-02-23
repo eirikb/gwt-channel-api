@@ -34,17 +34,21 @@ import com.google.gwt.user.client.rpc.SerializationStreamFactory;
 /**
  * @author Eirik Brandtzæg <eirikb@eirikb.no>
  */
-public class Channel {
+public class Channel implements IsSerializable {
     private List<ChannelListener> channelListeners;
     private String channelKey;
 
-    /**
-     *
-     * @param channelKey key of the channel.
-     */
+    public Channel() {
+
+    }
+
     public Channel(String channelKey) {
         this.channelKey = channelKey;
         channelListeners = new ArrayList<ChannelListener>();
+    }
+
+    public String getToken() {
+        return channelKey;
     }
 
     private void onMessage(String encoded) throws SerializationException {

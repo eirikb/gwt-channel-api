@@ -47,7 +47,6 @@ public class GwtChannelApiDemo implements EntryPoint {
     private TextArea chat;
     private TextBox messageBox;
     private Button sendButton;
-    private String channelKey;
 
     public void onModuleLoad() {
         chat = new TextArea();
@@ -88,13 +87,11 @@ public class GwtChannelApiDemo implements EntryPoint {
         });
 
         append("Logging on...");
-        channelService.join(new AsyncCallback<String>() {
+        channelService.connect("test", new AsyncCallback<Channel>() {
 
             @Override
-            public void onSuccess(String result) {
-                channelKey = result;
-                append("Channel key: " + channelKey);
-                Channel channel = new Channel(channelKey);
+            public void onSuccess(Channel channel) {
+                append("Channel key: " + channel.getToken());
                 channel.addChannelListener(new ChannelListener() {
 
                     @Override
