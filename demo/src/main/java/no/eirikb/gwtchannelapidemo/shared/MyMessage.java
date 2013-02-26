@@ -25,7 +25,8 @@ package no.eirikb.gwtchannelapidemo.shared;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
-@SuppressWarnings("serial")
+import java.io.Serializable;
+
 public class MyMessage implements IsSerializable {
     private String message;
 

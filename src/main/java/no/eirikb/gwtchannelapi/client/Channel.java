@@ -47,11 +47,10 @@ public class Channel {
     }
 
     private void onMessage(String encoded) throws SerializationException {
-       // SerializationStreamFactory ssf = GWT.create(DummySerializeService.class);
-       // IsSerializable message = (IsSerializable) ssf.createStreamReader(encoded).readObject();
+        SerializationStreamFactory ssf = GWT.create(DummySerializeService.class);
+        IsSerializable message = (IsSerializable) ssf.createStreamReader(encoded).readObject();
         for (int i = 0; i < channelListeners.size(); i++) {
-            //channelListeners.get(i).onReceive(message);
-            channelListeners.get(i).onReceive(new MyMessage(encoded));
+            channelListeners.get(i).onMessage(message);
         }
     }
 
@@ -118,7 +117,7 @@ public class Channel {
     }-*/;
 
     public void send(String message) {
-        channelService.send(channelName, message, new AsyncCallback<Void>() {
+        channelService.send(channelName, new MyMessage(message), new AsyncCallback<Void>() {
             @Override
             public void onFailure(Throwable throwable) {
             }

@@ -30,12 +30,8 @@ import com.google.gwt.user.client.rpc.RemoteService;
  * @author Eirik Brandtzæg <eirikb@eirikb.no>
  */
 public interface ChannelListener extends RemoteService  {
-    /**
-     * When an event is received from server (server push).
-     * 
-     * @param message any object that extends from abstract class Event
-     */
-    void onReceive(IsSerializable message);
+
+    void onMessage(IsSerializable message);
 
     void onOpen();
 

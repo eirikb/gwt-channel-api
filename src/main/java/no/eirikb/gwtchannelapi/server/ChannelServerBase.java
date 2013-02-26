@@ -10,15 +10,15 @@ import no.eirikb.gwtchannelapi.client.Channel;
 import no.eirikb.gwtchannelapi.client.ChannelService;
 import no.eirikb.gwtchannelapi.client.DummySerializeService;
 
+import java.io.Serializable;
 import java.lang.reflect.Method;
 
 
 public abstract class ChannelServerBase extends RemoteServiceServlet implements ChannelService {
 
 
-    /*
     @Override
-    public void send(String channel, String message) {
+    public void send(String channel, IsSerializable message) {
                                          try {
         Method serviceMethod = DummySerializeService.class.getMethod("getMessage", IsSerializable.class);
 
@@ -27,7 +27,6 @@ public abstract class ChannelServerBase extends RemoteServiceServlet implements 
         ChannelServiceFactory.getChannelService().sendMessage(new ChannelMessage(channel, serialized));
                                          } catch (Exception e){}
     }
-    */
 
     @Override
     public String join(String channelName) {
@@ -35,11 +34,12 @@ public abstract class ChannelServerBase extends RemoteServiceServlet implements 
         onJoin(channelName);
         return token;
     }
-
+          /*
     @Override
     public void send(String channel, String message) {
         ChannelServiceFactory.getChannelService().sendMessage(new ChannelMessage(channel, message));
     }
+    */
 
     abstract void onJoin(String wat);
 }

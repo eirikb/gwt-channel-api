@@ -40,6 +40,8 @@ import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import java.io.Serializable;
+
 public class GwtChannelApiDemo implements EntryPoint {
 
 
@@ -101,7 +103,7 @@ public class GwtChannelApiDemo implements EntryPoint {
         channel.addChannelListener(new ChannelListener() {
 
             @Override
-            public void onReceive(IsSerializable message) {
+            public void onMessage(IsSerializable message) {
                 append(message.toString());
 
             }

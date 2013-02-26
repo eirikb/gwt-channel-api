@@ -28,6 +28,8 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
+import java.io.Serializable;
+
 /**
  * Dummy class for serializing, ref:
  * http://code.google.com/p/cometd4gwt/source/browse/trunk/cometd4gwt/src/org/cometd4gwt/client/MetaService.java
