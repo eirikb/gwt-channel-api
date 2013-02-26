@@ -40,37 +40,9 @@ import no.eirikb.gwtchannelapidemo.shared.MyMessage;
 /**
  * @author Eirik Brandtzæg <eirikb@eirikb.no>
  */
-public class ChannelServer extends RemoteServiceServlet implements ChannelService {
+public class ChannelServer extends ChannelServerBase {
 
-    /**
-     * Send event to all clients on a given channel. 
-     * Channel is channel name here, not channel key
-     *
-     * @param channel
-     * @param message any class of no.eirikb.gwtchannelapi.client.Message
-     */
-    public static void send(String channel, IsSerializable message)
-            throws NoSuchMethodException, SerializationException {
-
-        Method serviceMethod = DummySerializeService.class.getMethod("getMessage", IsSerializable.class);
-
-        String serialized = RPC.encodeResponseForSuccess(serviceMethod, message);
-
-        ChannelServiceFactory.getChannelService().sendMessage(new ChannelMessage(channel, serialized));
-    }
-
-    @Override
-    public void sendMessage(String message) {
-        // TODO: Catch properly, perhaps no-throw
-        try {
-            ChannelServer.send("test", new MyMessage(message));
-        } catch (Exception e) {}
-    }
-
-    @Override
-    public Channel connect(String channelName) {
-        String token =  ChannelServiceFactory.getChannelService().createChannel(channelName);
-        Channel channel = new Channel(token);
-        return channel;
+    public void onJoin(String wat) {
+        System.out.println("CONNECT! " + wat);
     }
 }
