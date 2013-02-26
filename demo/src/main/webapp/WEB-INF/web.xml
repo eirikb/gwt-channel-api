@@ -11,7 +11,7 @@
 
     <servlet-mapping>
         <servlet-name>chatServlet</servlet-name>
-        <url-pattern>/GwtChannelApiDemo/chat</url-pattern>
+        <url-pattern>/GwtChannelApiDemo/channel</url-pattern>
     </servlet-mapping>
 
     <welcome-file-list>
