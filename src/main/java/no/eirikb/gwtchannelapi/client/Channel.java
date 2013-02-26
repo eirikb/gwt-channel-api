@@ -1,13 +1,13 @@
 package no.eirikb.gwtchannelapi.client;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.IsSerializable;
 import com.google.gwt.user.client.rpc.SerializationException;
 import com.google.gwt.user.client.rpc.SerializationStreamFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Channel {
     private List<ChannelListener> channelListeners;
