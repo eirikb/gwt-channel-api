@@ -42,11 +42,11 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class GwtChannelApiDemo implements EntryPoint {
 
-    private final ChannelServiceAsync channelService = GWT.create(ChannelService.class);
 
     private TextArea chat;
     private TextBox messageBox;
     private Button sendButton;
+    private Channel channel;
 
     public void onModuleLoad() {
         chat = new TextArea();
@@ -67,11 +67,19 @@ public class GwtChannelApiDemo implements EntryPoint {
 
             @Override
             public void onClick(ClickEvent event) {
+                if (channel == null) {
+                    append("Not connected");
+                    return;
+                }
+
+
                 String message = messageBox.getText();
-                if (!message.isEmpty()) {
+                if (message.isEmpty()) return;
+
                     messageBox.setText("");
                     append("Sending message: " + message);
-                    channelService.sendMessage(message, new AsyncCallback<Void>() {
+                /*
+                    channel.send(message, new AsyncCallback<Void>() {
 
                         @Override
                         public void onSuccess(Void result) {
@@ -82,47 +90,38 @@ public class GwtChannelApiDemo implements EntryPoint {
                             append("Failure: " + caught);
                         }
                     });
-                }
+                    */
+                channel.send(message);
             }
         });
 
         append("Logging on...");
-        channelService.connect("test", new AsyncCallback<Channel>() {
+
+        channel = new Channel("test");
+        channel.addChannelListener(new ChannelListener() {
 
             @Override
-            public void onSuccess(Channel channel) {
-                append("Channel key: " + channel.getToken());
-                channel.addChannelListener(new ChannelListener() {
+            public void onReceive(IsSerializable message) {
+                append(message.toString());
 
-                    @Override
-                    public void onReceive(IsSerializable message) {
-                        append(message.toString());
-
-                    }
-
-                    @Override
-                    public void onOpen() {
-                        append("Connection open!");
-                    }
-
-                    @Override
-                    public void onError() {
-                        append("Error!");
-                    }
-
-                    @Override
-                    public void onClose() {
-                        append("Close!");
-                    }
-                });
-                channel.join();
             }
 
-        @Override
-            public void onFailure(Throwable caught) {
+            @Override
+            public void onOpen() {
+                append("Connection open!");
+            }
 
+            @Override
+            public void onError() {
+                append("Error!");
+            }
+
+            @Override
+            public void onClose() {
+                append("Close!");
             }
         });
+        channel.join();
 
         VerticalPanel vp = new VerticalPanel();
         vp.add(chat);

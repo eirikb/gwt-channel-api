@@ -27,35 +27,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.IsSerializable;
 import com.google.gwt.user.client.rpc.SerializationException;
 import com.google.gwt.user.client.rpc.SerializationStreamFactory;
+import no.eirikb.gwtchannelapidemo.shared.MyMessage;
 
 /**
  * @author Eirik Brandtzæg <eirikb@eirikb.no>
  */
-public class Channel implements IsSerializable {
+public class Channel {
     private List<ChannelListener> channelListeners;
-    private String channelKey;
+    private String channelName;
+    private final ChannelServiceAsync channelService = GWT.create(ChannelService.class);
 
-    public Channel() {
-
-    }
-
-    public Channel(String channelKey) {
-        this.channelKey = channelKey;
+    public Channel(String channelName) {
+        this.channelName = channelName;
         channelListeners = new ArrayList<ChannelListener>();
     }
 
-    public String getToken() {
-        return channelKey;
-    }
-
     private void onMessage(String encoded) throws SerializationException {
-        SerializationStreamFactory ssf = GWT.create(DummySerializeService.class);
-        IsSerializable message = (IsSerializable) ssf.createStreamReader(encoded).readObject();
+       // SerializationStreamFactory ssf = GWT.create(DummySerializeService.class);
+       // IsSerializable message = (IsSerializable) ssf.createStreamReader(encoded).readObject();
         for (int i = 0; i < channelListeners.size(); i++) {
-            channelListeners.get(i).onReceive(message);
+            //channelListeners.get(i).onReceive(message);
+            channelListeners.get(i).onReceive(new MyMessage(encoded));
         }
     }
 
@@ -78,7 +74,16 @@ public class Channel implements IsSerializable {
     }
 
     public void join() {
-        join(channelKey);
+        channelService.join(channelName, new AsyncCallback<String>() {
+            @Override
+            public void onFailure(Throwable throwable) {
+            }
+
+            @Override
+            public void onSuccess(String token) {
+                join(token);
+            }
+        });
     }
 
     public void addChannelListener(ChannelListener channelListener) {
@@ -111,4 +116,16 @@ public class Channel implements IsSerializable {
             self.@no.eirikb.gwtchannelapi.client.Channel::onClose()();
         };
     }-*/;
+
+    public void send(String message) {
+        channelService.send(channelName, message, new AsyncCallback<Void>() {
+            @Override
+            public void onFailure(Throwable throwable) {
+            }
+
+            @Override
+            public void onSuccess(Void aVoid) {
+            }
+        });
+    }
 }
