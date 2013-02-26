@@ -13,6 +13,7 @@ public class Channel {
     private List<ChannelListener> channelListeners;
     private String channelName;
     private final ChannelServiceAsync channelService = GWT.create(ChannelService.class);
+    private String token;
 
     public Channel(String channelName) {
         this.channelName = channelName;
@@ -52,7 +53,8 @@ public class Channel {
             }
 
             @Override
-            public void onSuccess(String token) {
+            public void onSuccess(String t) {
+                token = t;
                 join(token);
             }
         });
@@ -102,6 +104,6 @@ public class Channel {
     }
 
     public void send(IsSerializable message, AsyncCallback<Void> callback) {
-        channelService.send(channelName, message, callback);
+        channelService.send(token, channelName, message, callback);
     }
 }
