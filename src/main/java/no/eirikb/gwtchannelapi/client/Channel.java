@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Channel {
-    private List<ChannelListener> channelListeners;
-    private String channelName;
+    private final List<ChannelListener> channelListeners;
+    private final String channelName;
     private final ChannelServiceAsync channelService = GWT.create(ChannelService.class);
     private String token;
 

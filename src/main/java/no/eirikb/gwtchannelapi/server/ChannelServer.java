@@ -12,7 +12,7 @@ import java.lang.reflect.Method;
 
 public abstract class ChannelServer extends RemoteServiceServlet implements ChannelService {
 
-    public static final void send(String channel, IsSerializable message) {
+    protected static void send(String channel, IsSerializable message) {
         try {
             Method serviceMethod = DummySerializeService.class.getMethod("getMessage", IsSerializable.class);
 
@@ -31,5 +31,5 @@ public abstract class ChannelServer extends RemoteServiceServlet implements Chan
         return token;
     }
 
-    public abstract void onJoin(String token, String channelName);
+    protected abstract void onJoin(String token, String channelName);
 }

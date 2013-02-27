@@ -42,7 +42,6 @@ public class GwtChannelApiDemo implements EntryPoint {
                     return;
                 }
 
-
                 String message = messageBox.getText();
                 if (message.isEmpty()) return;
 
@@ -52,20 +51,20 @@ public class GwtChannelApiDemo implements EntryPoint {
             }
         });
 
-        append("Logging on...");
+        append("Joining...");
 
         channel = new Channel("test");
         channel.addChannelListener(new ChannelListener() {
 
             @Override
             public void onMessage(IsSerializable message) {
-                append(message.toString());
+                append("Message: " + message.toString());
 
             }
 
             @Override
             public void onOpen() {
-                append("Connection open!");
+                append("Joined!");
             }
 
             @Override
