@@ -1,4 +1,4 @@
-This is a wrapper of Google App Engine [Channel API](http://code.google.com/appengine/docs/java/channel/overview.html) for [Google Web Toolkit](http://code.google.com/webtoolkit)
+This is a wrapper of Google App Engine [Channel API](https://developers.google.com/appengine/docs/java/channel/overview) for [Google Web Toolkit](https://developers.google.com/web-toolkit)
 
 Setup
 =====
@@ -22,7 +22,7 @@ Module
 Add this to your Module.gwt.xml:
 
 ```XML
-<inherits name='no.eirikb.gwtchannelapi.GwtChannelApi' />
+<inherits name="no.eirikb.gwtchannelapi.GwtChannelApi" />
 ```
 
 HTML
@@ -62,6 +62,7 @@ This servlet receives GWT RPC calls on `RemoteServiceRelativePath` __channel__, 
     <servlet-name>MyServlet</servlet-name>
     <url-pattern>/MyModule/channel</url-pattern>
 </servlet-mapping>
+...
 ```
 
 Client
@@ -90,7 +91,7 @@ channel.addChannelListener(new ChannelListener() {
 channel.join();
 ```
 
-Send messages with `channel.send(IsSerializable)`.
+Send messages with __`channel.send(IsSerializable)`__.
 
 Demo
 ====
