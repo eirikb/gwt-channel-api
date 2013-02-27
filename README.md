@@ -12,7 +12,7 @@ Add this to your pom.xml:
 <dependency>
     <groupId>no.eirikb.gwtchannelapi</groupId>
     <artifactId>gwt-channel-api</artifactId>
-    <version>0.2</version>
+    <version>0.3</version>
 </dependency>
 ```
 
@@ -37,40 +37,63 @@ Add this to your index.html:
 Usage
 =====
 
-Create a channel on server
---------------------------
+Server
+------
+
+Extend `no.eirikb.gwtchannelapi.server.ChannelServer` to create a servlet listening for joins and messages.
 
 ```Java
-ChannelServiceFactory.getChannelService().createChannel(CHANNELNAME);
-```
+public class MyServer extends ChannelServer {
+    public void onJoin(String token, String channelName) {
+    }
 
-Join a channel on client
-------------------------
-
-```Java
-import no.eirikb.gwtchannelapi.client.Channel;
-import no.eirikb.gwtchannelapi.client.Channel.ChannelListener;
-
-Channel.join(channelKey, new ChannelListener() { ... });
-```
-
-Send/Push messages from server
-------------------------------
-
-All classes that should be pushed MUST implement Message
-
-```Java
-import no.eirikb.gwtchannelapi.client.Message;
-    public class MessageEvent implements Message {
+    public void onMessage(String token, String channelName, IsSerializable message) {
+        // Send the message to everyone in the channel
+        send(channelName, message);
+    }
 }
 ```
 
-```Java
-ChannelServer.sendEvent(CHANNELNAME, new MessageEvent("Hello world"));
+This servlet receives GWT RPC calls on `RemoteServiceRelativePath` __channel__, so make sure to implement this in _web.xml_:
+
+```XML
+...
+<servlet-mapping>
+    <servlet-name>MyServlet</servlet-name>
+    <url-pattern>/MyModule/channel</url-pattern>
+</servlet-mapping>
 ```
+
+Client
+------
+
+```Java
+channel = new Channel("SomeRandomChannel");
+channel.addChannelListener(new ChannelListener() {
+
+    @Override
+    public void onMessage(IsSerializable message) {
+    }
+
+    @Override
+    public void onOpen() {
+    }
+
+    @Override
+    public void onError() {
+    }
+
+    @Override
+    public void onClose() {
+    }
+});
+channel.join();
+```
+
+Send messages with `channel.send(IsSerializable)`.
 
 Not using maven
 ===============
 
 It should be possible to download the jar manually from here:  
-http://repo1.maven.org/maven2/no/eirikb/gwt-channel-api/0.1/gwt-channel-api-0.1.jar
+http://repo1.maven.org/maven2/no/eirikb/gwt-channel-api/0.1/gwt-channel-api-0.3.jar
