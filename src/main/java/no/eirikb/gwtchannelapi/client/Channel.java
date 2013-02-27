@@ -104,6 +104,6 @@ public class Channel {
     }
 
     public void send(IsSerializable message, AsyncCallback<Void> callback) {
-        channelService.send(token, channelName, message, callback);
+        channelService.onMessage(token, channelName, message, callback);
     }
 }

@@ -12,28 +12,24 @@ import java.lang.reflect.Method;
 
 public abstract class ChannelServer extends RemoteServiceServlet implements ChannelService {
 
-    @Override
-    public void send(String token, String channel, IsSerializable message) {
+    public static final void send(String channel, IsSerializable message) {
         try {
             Method serviceMethod = DummySerializeService.class.getMethod("getMessage", IsSerializable.class);
 
             String serialized = RPC.encodeResponseForSuccess(serviceMethod, message);
 
+            System.out.println("Sending to channel: " + channel);
             ChannelServiceFactory.getChannelService().sendMessage(new ChannelMessage(channel, serialized));
-
-            onMessage(token, channel, message);
         } catch (Exception e) {
         }
     }
 
     @Override
-    public String join(String channelName) {
+    public final String join(String channelName) {
         String token = ChannelServiceFactory.getChannelService().createChannel(channelName);
         onJoin(token, channelName);
         return token;
     }
 
     public abstract void onJoin(String token, String channelName);
-
-    public abstract void onMessage(String token, String channelName, IsSerializable message);
 }
