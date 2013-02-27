@@ -92,6 +92,12 @@ channel.join();
 
 Send messages with `channel.send(IsSerializable)`.
 
+Demo
+====
+
+There should be a working demo at http://gwt-channel-api.appspot.com/ .  
+To build and run the demo in demo folder locally run `mvn gwt:run`.
+
 Not using maven
 ===============
 
