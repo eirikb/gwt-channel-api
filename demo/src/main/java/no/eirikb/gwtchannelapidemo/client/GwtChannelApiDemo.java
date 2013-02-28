@@ -1,13 +1,18 @@
 package no.eirikb.gwtchannelapidemo.client;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyDownHandler;
 import com.google.gwt.user.client.ui.*;
+import com.google.web.bindery.autobean.shared.AutoBean;
+import com.google.web.bindery.autobean.shared.AutoBeanCodex;
 import no.eirikb.gwtchannelapi.client.Channel;
 import no.eirikb.gwtchannelapi.client.ChannelListener;
+import no.eirikb.gwtchannelapidemo.shared.MyFactory;
+import no.eirikb.gwtchannelapidemo.shared.MyMessage;
 
 public class GwtChannelApiDemo implements EntryPoint {
 
@@ -56,8 +61,11 @@ public class GwtChannelApiDemo implements EntryPoint {
 
             @Override
             public void onMessage(String message) {
-                append("Message: " + message);
+                MyFactory myFactory = GWT.create(MyFactory.class);
+                AutoBean<MyMessage> bean = AutoBeanCodex.decode(myFactory, MyMessage.class, message);
+                MyMessage myMessage = bean.as();
 
+                append("Message: " + myMessage.getMessage());
             }
 
             @Override

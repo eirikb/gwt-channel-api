@@ -5,14 +5,10 @@ import com.google.appengine.api.channel.ChannelServiceFactory;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.google.web.bindery.autobean.shared.AutoBean;
 import com.google.web.bindery.autobean.shared.AutoBeanCodex;
-import com.google.web.bindery.autobean.shared.AutoBeanFactory;
 import com.google.web.bindery.autobean.shared.AutoBeanUtils;
-import com.google.web.bindery.autobean.vm.AutoBeanFactorySource;
 import no.eirikb.gwtchannelapi.client.ChannelService;
 
 public abstract class ChannelServer extends RemoteServiceServlet implements ChannelService {
-
-    public static <F extends AutoBeanFactory> F factory(Class<F> clazz) { return AutoBeanFactorySource.create(clazz); }
 
     protected static void send(String channel, Object o) {
         AutoBean bean = AutoBeanUtils.getAutoBean(o);

@@ -17,14 +17,9 @@ public class Channel {
         channelListeners = new ArrayList<ChannelListener>();
     }
 
-    private void onMessage(String encoded) {
-        //SerializationStreamFactory ssf = GWT.create(DummySerializeService.class);
-        //IsSerializable message = (IsSerializable) ssf.createStreamReader(encoded).readObject();
-        //MyFactory factory = GWT.create(MyFactory.class);
-        //AutoBean<MyMessage> bean = AutoBeanCodex.decode(factory, MyMessage.class, encoded);
-        //MyMessage message = bean.as();
+    private void onMessage(String message) {
         for (int i = 0; i < channelListeners.size(); i++) {
-            channelListeners.get(i).onMessage(encoded);
+            channelListeners.get(i).onMessage(message);
         }
     }
 
