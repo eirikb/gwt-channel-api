@@ -2,26 +2,23 @@ package no.eirikb.gwtchannelapi.server;
 
 import com.google.appengine.api.channel.ChannelMessage;
 import com.google.appengine.api.channel.ChannelServiceFactory;
-import com.google.gwt.user.client.rpc.IsSerializable;
-import com.google.gwt.user.server.rpc.RPC;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+import com.google.web.bindery.autobean.shared.AutoBean;
+import com.google.web.bindery.autobean.shared.AutoBeanCodex;
+import com.google.web.bindery.autobean.shared.AutoBeanFactory;
+import com.google.web.bindery.autobean.shared.AutoBeanUtils;
+import com.google.web.bindery.autobean.vm.AutoBeanFactorySource;
 import no.eirikb.gwtchannelapi.client.ChannelService;
-import no.eirikb.gwtchannelapi.client.DummySerializeService;
-
-import java.lang.reflect.Method;
 
 public abstract class ChannelServer extends RemoteServiceServlet implements ChannelService {
 
-    protected static void send(String channel, IsSerializable message) {
-        try {
-            Method serviceMethod = DummySerializeService.class.getMethod("getMessage", IsSerializable.class);
+    public static <F extends AutoBeanFactory> F factory(Class<F> clazz) { return AutoBeanFactorySource.create(clazz); }
 
-            String serialized = RPC.encodeResponseForSuccess(serviceMethod, message);
+    protected static void send(String channel, Object o) {
+        AutoBean bean = AutoBeanUtils.getAutoBean(o);
+        String serialized = AutoBeanCodex.encode(bean).getPayload();
 
-            System.out.println("Sending to channel: " + channel);
-            ChannelServiceFactory.getChannelService().sendMessage(new ChannelMessage(channel, serialized));
-        } catch (Exception e) {
-        }
+        ChannelServiceFactory.getChannelService().sendMessage(new ChannelMessage(channel, serialized));
     }
 
     @Override

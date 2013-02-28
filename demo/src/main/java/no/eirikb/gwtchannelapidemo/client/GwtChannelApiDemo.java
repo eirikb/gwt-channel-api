@@ -5,11 +5,9 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyDownHandler;
-import com.google.gwt.user.client.rpc.IsSerializable;
 import com.google.gwt.user.client.ui.*;
 import no.eirikb.gwtchannelapi.client.Channel;
 import no.eirikb.gwtchannelapi.client.ChannelListener;
-import no.eirikb.gwtchannelapidemo.shared.MyMessage;
 
 public class GwtChannelApiDemo implements EntryPoint {
 
@@ -47,7 +45,7 @@ public class GwtChannelApiDemo implements EntryPoint {
 
                 messageBox.setText("");
                 append("Sending message: " + message);
-                channel.send(new MyMessage(message));
+                channel.send(message);
             }
         });
 
@@ -57,8 +55,8 @@ public class GwtChannelApiDemo implements EntryPoint {
         channel.addChannelListener(new ChannelListener() {
 
             @Override
-            public void onMessage(IsSerializable message) {
-                append("Message: " + message.toString());
+            public void onMessage(String message) {
+                append("Message: " + message);
 
             }
 

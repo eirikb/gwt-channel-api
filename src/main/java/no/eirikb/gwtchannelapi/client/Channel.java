@@ -2,9 +2,6 @@ package no.eirikb.gwtchannelapi.client;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.rpc.IsSerializable;
-import com.google.gwt.user.client.rpc.SerializationException;
-import com.google.gwt.user.client.rpc.SerializationStreamFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,11 +17,14 @@ public class Channel {
         channelListeners = new ArrayList<ChannelListener>();
     }
 
-    private void onMessage(String encoded) throws SerializationException {
-        SerializationStreamFactory ssf = GWT.create(DummySerializeService.class);
-        IsSerializable message = (IsSerializable) ssf.createStreamReader(encoded).readObject();
+    private void onMessage(String encoded) {
+        //SerializationStreamFactory ssf = GWT.create(DummySerializeService.class);
+        //IsSerializable message = (IsSerializable) ssf.createStreamReader(encoded).readObject();
+        //MyFactory factory = GWT.create(MyFactory.class);
+        //AutoBean<MyMessage> bean = AutoBeanCodex.decode(factory, MyMessage.class, encoded);
+        //MyMessage message = bean.as();
         for (int i = 0; i < channelListeners.size(); i++) {
-            channelListeners.get(i).onMessage(message);
+            channelListeners.get(i).onMessage(encoded);
         }
     }
 
@@ -91,7 +91,7 @@ public class Channel {
         };
     }-*/;
 
-    public void send(IsSerializable message) {
+    public void send(String message) {
         send(message, new AsyncCallback<Void>() {
             @Override
             public void onFailure(Throwable throwable) {
@@ -103,7 +103,7 @@ public class Channel {
         });
     }
 
-    public void send(IsSerializable message, AsyncCallback<Void> callback) {
+    public void send(String message, AsyncCallback<Void> callback) {
         channelService.onMessage(token, channelName, message, callback);
     }
 }
