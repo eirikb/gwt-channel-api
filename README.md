@@ -1,4 +1,4 @@
-This is a wrapper of Google App Engine [Channel API](https://developers.google.com/appengine/docs/java/channel/overview) for [Google Web Toolkit](https://developers.google.com/web-toolkit)
+This is a wrapper of Google App Engine [Channel API](https://developers.google.com/appengine/docs/java/channel/overview) for [Google Web Toolkit](https://developers.google.com/web-toolkit).
 
 Setup
 =====
@@ -47,7 +47,7 @@ public class MyServer extends ChannelServer {
     public void onJoin(String token, String channelName) {
     }
 
-    public void onMessage(String token, String channelName, IsSerializable message) {
+    public void onMessage(String token, String channelName, String message) {
         // Send the message to everyone in the channel
         send(channelName, message);
     }
@@ -73,7 +73,7 @@ channel = new Channel("SomeRandomChannel");
 channel.addChannelListener(new ChannelListener() {
 
     @Override
-    public void onMessage(IsSerializable message) {
+    public void onMessage(String message) {
     }
 
     @Override
@@ -81,7 +81,7 @@ channel.addChannelListener(new ChannelListener() {
     }
 
     @Override
-    public void onError() {
+    public void onError(int code, String description) {
     }
 
     @Override
@@ -91,7 +91,17 @@ channel.addChannelListener(new ChannelListener() {
 channel.join();
 ```
 
-Send messages with __`channel.send(IsSerializable)`__.
+Send messages with __`channel.send(String)`__.
+
+AutoBean
+--------
+
+The current version of gwt-channel-api only support sending and receiving Strings.  
+Previous versions used IsSerializable, but without proper RPC support it is better to let users handle this themselves.  
+One of the current preferable ways to handle serialization is to use AutoBean, please see examples in the demo:
+
+ *  [ChatServerImpl.java](eirikb/gwt-channel-api/blob/master/demo/src/main/java/no/eirikb/gwtchannelapidemo/server/ChatServiceImpl.java) serializing with [MyFactory.java](eirikb/gwt-channel-api/blob/master/demo/src/main/java/no/eirikb/gwtchannelapidemo/server/MyFactory.java) and [MyMessage.java](eirikb/gwt-channel-api/blob/master/demo/src/main/java/no/eirikb/gwtchannelapidemo/shared/MyMessage.java).
+ * [GwtChannelApiDemo.java](/eirikb/gwt-channel-api/blob/master/demo/src/main/java/no/eirikb/gwtchannelapidemo/client/GwtChannelApiDemo.java) Deserializing client side.
 
 Demo
 ====
