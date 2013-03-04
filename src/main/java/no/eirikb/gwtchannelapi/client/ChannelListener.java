@@ -31,7 +31,7 @@ public interface ChannelListener extends RemoteService {
 
     void onOpen();
 
-    void onError();
+    void onError(int code, String description);
 
     void onClose();
 }

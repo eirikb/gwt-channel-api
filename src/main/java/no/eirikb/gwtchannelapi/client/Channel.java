@@ -52,9 +52,9 @@ public class Channel {
         }
     }
 
-    private void onError() {
+    private void onError(int code, String description) {
         for (int i = 0; i < channelListeners.size(); i++) {
-            channelListeners.get(i).onError();
+            channelListeners.get(i).onError(code, description);
         }
     }
 
@@ -100,8 +100,8 @@ public class Channel {
             self.@no.eirikb.gwtchannelapi.client.Channel::onOpen()();
         };
 
-        socket.onerror = function() {
-            self.@no.eirikb.gwtchannelapi.client.Channel::onError()();
+        socket.onerror = function(error) {
+            self.@no.eirikb.gwtchannelapi.client.Channel::onError(ILjava/lang/String;)(error.code, error.description);
         };
 
         socket.onclose = function() {

@@ -97,8 +97,8 @@ public class GwtChannelApiDemo implements EntryPoint {
             }
 
             @Override
-            public void onError() {
-                append("Error!");
+            public void onError(int code, String description) {
+                append("Error! " + code + ". " + description);
             }
 
             @Override
