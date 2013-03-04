@@ -7,7 +7,7 @@
 
     <groupId>no.eirikb</groupId>
     <artifactId>gwt-channel-api-demo</artifactId>
-    <version>0.2-SNAPSHOT</version>
+    <version>0.3-SNAPSHOT</version>
     <name>gwt-channel-api-demo</name>
     <packaging>war</packaging>
 
@@ -40,7 +40,7 @@
         <dependency>
             <groupId>no.eirikb</groupId>
             <artifactId>gwt-channel-api</artifactId>
-            <version>0.2</version>
+            <version>0.3</version>
         </dependency>
     </dependencies>
 
