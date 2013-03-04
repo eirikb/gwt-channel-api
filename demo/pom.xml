@@ -66,6 +66,11 @@
                     <appEngineVersion>1.7.4</appEngineVersion>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>com.google.appengine</groupId>
+                <artifactId>appengine-maven-plugin</artifactId>
+                <version>1.7.4</version>
+            </plugin>
         </plugins>
     </build>
 </project>
