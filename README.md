@@ -100,8 +100,8 @@ The current version of gwt-channel-api only support sending and receiving String
 Previous versions used IsSerializable, but without proper RPC support it is better to let users handle this themselves.  
 One of the current preferable ways to handle serialization is to use AutoBean, please see examples in the demo:
 
- *  [ChatServerImpl.java](/eirikb/gwt-channel-api/blob/master/demo/src/main/java/no/eirikb/gwtchannelapidemo/server/ChatServiceImpl.java) serializing with [MyFactory.java](/eirikb/gwt-channel-api/blob/master/demo/src/main/java/no/eirikb/gwtchannelapidemo/server/MyFactory.java) and [MyMessage.java](/eirikb/gwt-channel-api/blob/master/demo/src/main/java/no/eirikb/gwtchannelapidemo/shared/MyMessage.java).
- * [GwtChannelApiDemo.java](/eirikb/gwt-channel-api/blob/master/demo/src/main/java/no/eirikb/gwtchannelapidemo/client/GwtChannelApiDemo.java) Deserializing client side.
+ *  [ChatServerImpl.java](blob/master/demo/src/main/java/no/eirikb/gwtchannelapidemo/server/ChatServiceImpl.java) serializing with [MyFactory.java](blob/master/demo/src/main/java/no/eirikb/gwtchannelapidemo/server/MyFactory.java) and [MyMessage.java](blob/master/demo/src/main/java/no/eirikb/gwtchannelapidemo/shared/MyMessage.java).
+ * [GwtChannelApiDemo.java](blob/master/demo/src/main/java/no/eirikb/gwtchannelapidemo/client/GwtChannelApiDemo.java) Deserializing client side.
 
 Demo
 ====
