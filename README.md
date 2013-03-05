@@ -113,4 +113,4 @@ Not using maven
 ===============
 
 It should be possible to download the jar manually from here:  
-http://repo1.maven.org/maven2/no/eirikb/gwt-channel-api/0.1/gwt-channel-api-0.3.jar
+http://repo1.maven.org/maven2/no/eirikb/gwt-channel-api/0.3/gwt-channel-api-0.3.jar
