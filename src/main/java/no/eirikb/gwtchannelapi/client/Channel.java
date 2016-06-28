@@ -91,22 +91,22 @@ public class Channel {
         var socket = channel.open();
         var self = this;
 
-        socket.onmessage = function(evt) {
+        socket.onmessage = $entry(function(evt) {
             var data = evt.data;
             self.@no.eirikb.gwtchannelapi.client.Channel::onMessage(Ljava/lang/String;)(data);
-        };
+        });
 
-        socket.onopen = function() {
+        socket.onopen = $entry(function() {
             self.@no.eirikb.gwtchannelapi.client.Channel::onOpen()();
-        };
+        });
 
-        socket.onerror = function(error) {
+        socket.onerror = $entry(function(error) {
             self.@no.eirikb.gwtchannelapi.client.Channel::onError(ILjava/lang/String;)(error.code, error.description);
-        };
+        });
 
-        socket.onclose = function() {
+        socket.onclose = $entry(function() {
             self.@no.eirikb.gwtchannelapi.client.Channel::onClose()();
-        };
+        });
     }-*/;
 
     public void send(String message) {
